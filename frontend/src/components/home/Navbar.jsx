@@ -126,7 +126,7 @@ const Navbar = ({ onLoginClick }) => {
           {/* Sidebar Toggle Icon */}
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 text-gray-700 hover:text-blue-700"
+            className="p-2 text-gray-700 hover:text-emerald-600"
           >
             <Menu size={28} />
           </button>

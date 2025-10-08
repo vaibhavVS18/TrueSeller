@@ -55,7 +55,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout, onLoginClick }
         <nav className="flex-1">
           <Link
             to="/start-shop"
-            className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 p-3 rounded-lg transition font-medium"
+            className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-cyan-600 p-3 rounded-lg transition font-medium"
             onClick={() => setIsSidebarOpen(false)}
           >
             <Store size={20} />
@@ -64,7 +64,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout, onLoginClick }
 
           <Link
             to="/productsPage"
-            className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 p-3 rounded-lg transition font-medium"
+            className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-cyan-600 p-3 rounded-lg transition font-medium"
             onClick={() => setIsSidebarOpen(false)}
           >
             <ShoppingBag size={20} />
@@ -73,7 +73,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout, onLoginClick }
 
           <Link
             to="/shopsPage"
-            className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 p-3 rounded-lg transition font-medium"
+            className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-cyan-600 p-3 rounded-lg transition font-medium"
             onClick={() => setIsSidebarOpen(false)}
           >
             <ShoppingCart size={20} />
@@ -86,7 +86,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout, onLoginClick }
           {user ? (
             <button
               onClick={handleLogout}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 active:scale-[0.98] transition"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-cyan-600 text-white rounded-lg hover:bg-cyan-500 active:scale-[0.98] transition"
             >
               <LogOut size={20} />
               Logout
