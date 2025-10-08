@@ -15,8 +15,8 @@ connect();
 const app = express();
 
 const allowedOrigins = [
-  "https://trueseller.vercel.app",
-  "http://localhost:5173",
+  "https://trueseller.vercel.app", // your frontend
+  "http://localhost:5173",         // dev
 ];
 
 app.use(
@@ -34,12 +34,14 @@ app.use(
   })
 );
 
-app.options("*", cors({
+// ✅ Proper preflight handling for all routes (Express 5 safe)
+app.options(/.*/, cors({
   origin: allowedOrigins,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
 
 
 app.use(express.json());
