@@ -14,12 +14,33 @@ dotenv.config();
 connect();
 const app = express();
 
+const allowedOrigins = [
+  "https://trueseller.vercel.app",
+  "http://localhost:5173",
+];
+
 app.use(
   cors({
-    origin: "https://trueseller.vercel.app",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed for this origin"));
+      }
+    },
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+app.options("*", cors({
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
