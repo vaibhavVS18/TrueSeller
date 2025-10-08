@@ -11,6 +11,11 @@ import cartRoutes from "./routes/cart.routes.js";
 
 dotenv.config();
 
+import { websiteActiva } from "activa";
+if(process.env.BACKEND_URL){
+    const intervalId = websiteActiva(`${process.env.BACKEND_URL}`, 13);
+}
+
 connect();
 const app = express();
 
@@ -47,12 +52,6 @@ app.options(/.*/, cors({
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
-
-
-//    -> Keep backend alive with activa
-// if (process.env.BACKEND_URL) {
-//   websiteActiva(process.env.BACKEND_URL, 13); // every 13 minutes
-// }
 
 app.get("/", (req, res)=>{
     res.send("hello");

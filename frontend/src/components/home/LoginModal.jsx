@@ -78,7 +78,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
               id="email"
               placeholder="Enter your email"
               required
-              className="w-full py-3 px-4 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all text-sm sm:text-base"
+              className="w-full py-3 px-4 rounded-lg bg-gray-50 border border-gray-300 text-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all text-sm sm:text-base"
             />
           </div>
 
@@ -95,7 +95,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
               id="password"
               placeholder="Enter your password"
               required
-              className="w-full py-3 px-4 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all text-sm sm:text-base"
+              className="w-full py-3 px-4 rounded-lg bg-gray-50 border border-gray-300 text-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all text-sm sm:text-base"
             />
           </div>
 

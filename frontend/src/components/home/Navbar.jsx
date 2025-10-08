@@ -134,7 +134,7 @@ const Navbar = ({ onLoginClick }) => {
       </div>
 
       {/* Mobile Quick Nav Strip */}
-      <div className="fixed bottom-0 left-0 w-full z-40 md:hidden bg-white border-t shadow-md py-2 flex justify-around items-center text-gray-700 text-xs font-medium safe-bottom">
+      <div className="fixed bottom-0 left-0 w-full z-40 md:hidden bg-white border shadow-md py-2 flex justify-around items-center text-gray-700 text-xs font-medium safe-bottom">
         <Link
           to="/"
           className="flex flex-col items-center hover:text-blue-600 transition-all"
