@@ -7,12 +7,12 @@ import { UserContext } from "../../context/user.context";
 const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading]  =useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  function submitHandler(e) {
+  const submitHandler = (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -22,53 +22,52 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
         navigate("/");
-        onClose(); // close modal after login
+        onClose();
       })
       .catch((err) => {
-        console.log(err.response?.data || err.message);
+        console.error(err.response?.data || err.message);
       })
-      .finally(()=>{
-        setLoading(false);
-      });
-  }
+      .finally(() => setLoading(false));
+  };
 
-    // Google OAuth
   const handleGoogleLogin = () => {
-    // redirect user to backend Google login route
-      const backendUrl = import.meta.env.VITE_API_URL;
-      const redirectPage = window.location.pathname;  // currentpage
-     window.location.href = `${backendUrl}/auth/google?state=${encodeURIComponent(redirectPage)}`;
+    const backendUrl = import.meta.env.VITE_API_URL;
+    const redirectPage = window.location.pathname;
+    window.location.href = `${backendUrl}/auth/google?state=${encodeURIComponent(
+      redirectPage
+    )}`;
   };
 
   if (!isOpen) return null;
 
   return (
     <div
-    //   className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4 overflow-y-auto"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4 overflow-y-auto"
       onClick={onClose}
     >
-      {/* Modal box */}
+      {/* Modal Container */}
       <div
-        className="bg-gray-900/80 backdrop-blur-md p-4 sm:p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-800 relative my-8"
+        className="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md relative my-8 border border-gray-200"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
+        {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-400 hover:text-white transition"
+          className="absolute top-3 right-3 text-gray-500 hover:text-red-500 transition"
         >
           ✕
         </button>
 
-        <h2 className="text-2xl sm:text-3xl font-bold mb-5 text-center bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+        {/* Header */}
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center bg-gradient-to-r from-emerald-500 to-teal-400 bg-clip-text text-transparent">
           Login
         </h2>
 
+        {/* Form */}
         <form onSubmit={submitHandler} className="space-y-5">
           <div>
             <label
-              className="block text-gray-400 mb-2 text-sm font-medium"
+              className="block text-gray-600 mb-2 text-sm font-medium"
               htmlFor="email"
             >
               Email
@@ -79,12 +78,13 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
               id="email"
               placeholder="Enter your email"
               required
-              className="w-full py-3 px-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-sm sm:text-base"
+              className="w-full py-3 px-4 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all text-sm sm:text-base"
             />
           </div>
+
           <div>
             <label
-              className="block text-gray-400 mb-2 text-sm font-medium"
+              className="block text-gray-600 mb-2 text-sm font-medium"
               htmlFor="password"
             >
               Password
@@ -95,51 +95,51 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
               id="password"
               placeholder="Enter your password"
               required
-              className="w-full py-3 px-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-sm sm:text-base"
+              className="w-full py-3 px-4 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all text-sm sm:text-base"
             />
           </div>
+
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 rounded-xl font-medium shadow-md transition-all text-sm sm:text-base 
-              ${loading 
-                ? "bg-gray-700 text-gray-300 cursor-not-allowed" 
-                : "bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white"
-              }`}
+            className={`w-full py-3 rounded-xl font-semibold shadow-md transition-all text-sm sm:text-base ${
+              loading
+                ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                : "bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-white"
+            }`}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
-
         </form>
 
         {/* Divider */}
-          <div className="flex items-center my-3">
-            <hr className="flex-1 border-gray-700" />
-            <span className="px-3 text-gray-400">or</span>
-            <hr className="flex-1 border-gray-700" />
-          </div> 
-
-        {/* Google Sign Up Button */}
-        <div className="flex justify-center">
-        <button
-          onClick={handleGoogleLogin}
-          className=" py-2 px-4 flex items-center justify-center gap-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-medium shadow-md transition-all text-sm sm:text-base"
-        >
-          {/* <FcGoogle className="text-xl" /> */}
-          Sign in with Google
-        </button>
+        <div className="flex items-center my-4">
+          <hr className="flex-1 border-gray-300" />
+          <span className="px-3 text-gray-400">or</span>
+          <hr className="flex-1 border-gray-300" />
         </div>
-        
 
-        <p className="text-gray-400 mt-4 text-center text-xs sm:text-sm">
+        {/* Google Login */}
+        <div className="flex justify-center">
+          <button
+            onClick={handleGoogleLogin}
+            className="py-2.5 px-5 flex items-center justify-center gap-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium shadow-sm border border-gray-300 transition-all text-sm sm:text-base"
+          >
+            {/* <FcGoogle className="text-xl" /> */}
+            Continue with Google
+          </button>
+        </div>
+
+        {/* Signup Link */}
+        <p className="text-gray-500 mt-5 text-center text-sm">
           Don&apos;t have an account?{" "}
           <button
             type="button"
             onClick={() => {
-              onClose();      // close Login modal
-              onSignupClick(); // open Register modal
+              onClose();
+              onSignupClick();
             }}
-            className="text-emerald-400 hover:text-cyan-400 font-medium transition-colors"
+            className="text-emerald-600 hover:text-teal-500 font-medium transition-colors"
           >
             Create one
           </button>

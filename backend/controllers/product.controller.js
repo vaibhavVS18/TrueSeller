@@ -28,6 +28,10 @@ export const createProductController = async (req, res) => {
 export const getAllProductsController = async (req, res) => {
   try {
     const { category, shop, search } = req.query;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 12;
+    const skip = (page - 1) * limit;
+
     const filter = {};
 
     if (category) filter.category = category;
@@ -47,9 +51,22 @@ export const getAllProductsController = async (req, res) => {
       filter.$or = orConditions;
     }
 
-    const products = await Product.find(filter).populate("shop", "shopname owner");
+    const total = await Product.countDocuments(filter);
 
-    res.status(200).json({ products });
+    const products = await Product.find(filter)
+      .populate("shop", "shopname owner")
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      products,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

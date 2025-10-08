@@ -29,7 +29,9 @@ const Layout = ()=>{
             </main>
 
             {/* Footer shared across all pages */}
-            <Footer />
+            <Footer 
+                onLoginClick={() => setIsLoginOpen(true)} 
+            />
 
             
             {/* Global Modals */}

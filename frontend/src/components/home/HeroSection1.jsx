@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HeroSection1 = () => {
   return (
     <section
       className="
-        relative
+        relative z-50 
         flex flex-col items-center justify-center 
         lg:items-start flex-1 w-full 
         text-center lg:text-left 
@@ -39,12 +40,18 @@ const HeroSection1 = () => {
 
       {/* CTA Buttons */}
       <div className="flex gap-3 justify-center lg:justify-start">
-        <button className="px-4 py-2 sm:px-5 sm:py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl shadow-md active:scale-95 transition-all">
+        <Link 
+        to="/start-shop"
+        className="px-4 py-2 sm:px-5 sm:py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl shadow-md active:scale-95 transition-all"
+        >
           ⚡ Start Selling
-        </button>
-        <button className="px-4 py-2 sm:px-5 sm:py-2.5 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold rounded-xl shadow-md active:scale-95 transition-all">
+        </Link>
+        <Link 
+        to="/shopsPage"
+        className="px-4 py-2 sm:px-5 sm:py-2.5 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold rounded-xl shadow-md active:scale-95 transition-all"
+        >
           📈 Explore Shops
-        </button>
+        </Link>
       </div>
     </section>
   );

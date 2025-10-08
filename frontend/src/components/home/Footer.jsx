@@ -1,7 +1,7 @@
 import React from "react";
 import { Facebook, Twitter, Instagram, Linkedin, Bell } from "lucide-react";
 
-const Footer = () => {
+const Footer = ({onLoginClick}) => {
   return (
     <footer className="bg-gray-950 text-gray-300">
       {/* Newsletter Section
@@ -43,10 +43,10 @@ const Footer = () => {
         <div>
           <h3 className="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Quick Links</h3>
           <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
-            <li><a href="/products" className="hover:text-indigo-400 transition-colors">Explore Products</a></li>
-            <li><a href="/shops" className="hover:text-indigo-400 transition-colors">Shops</a></li>
-            <li><a href="/sell" className="hover:text-indigo-400 transition-colors">Open Shop</a></li>
-            <li><a href="/login" className="hover:text-indigo-400 transition-colors">Login</a></li>
+            <li><a href="/productsPage" className="hover:text-indigo-400 transition-colors">Explore Products</a></li>
+            <li><a href="/shopsPage" className="hover:text-indigo-400 transition-colors">Shops</a></li>
+            <li><a href="/start-shop" className="hover:text-indigo-400 transition-colors">Open Shop</a></li>
+            <li><a href="#" onClick={onLoginClick} className="hover:text-indigo-400 transition-colors">Login</a></li>
           </ul>
         </div>
 

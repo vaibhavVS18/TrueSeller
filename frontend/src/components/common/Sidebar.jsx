@@ -1,13 +1,13 @@
-// Sidebar.jsx
-import React, {useContext} from "react";
-import { X, Store, ShoppingBag, ShoppingCart, LogOut } from "lucide-react";
+import React, { useContext } from "react";
+import { X, Store, ShoppingBag, ShoppingCart, LogOut, LogIn } from "lucide-react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/user.context";
 
-const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout }) => {
+const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout, onLoginClick }) => {
   if (!isSidebarOpen) return null;
 
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
+
   return (
     <div className="fixed inset-0 z-50 flex">
       {/* Background Overlay */}
@@ -28,14 +28,21 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout }) => {
 
         {/* User Info */}
         <div className="flex flex-col items-center mt-6 mb-8">
-          <Link 
-          to="/profilePage"
-          className="w-30 h-30 rounded-full overflow-hidden border-4 border-emerald-400 shadow-md"
-          onClick={() => setIsSidebarOpen(false)}
+          <Link
+            to={user ? "/profilePage" : "#"}
+            className="w-30 h-30 rounded-full overflow-hidden border-4 border-emerald-400 shadow-md"
+            onClick={() => {
+                !user && onLoginClick()
+                setIsSidebarOpen(false)
+            }
+            }
           >
             <img
-              src={user?.profileImage || "/default-profile.png"}
-              alt={user?.email || "User"}
+              src={
+                user?.profileImage ||
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf1fiSQO7JfDw0uv1Ae_Ye-Bo9nhGNg27dwg&s"
+              }
+              alt={user?.email || "Guest"}
               className="w-full h-full object-cover"
             />
           </Link>
@@ -74,15 +81,28 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout }) => {
           </Link>
         </nav>
 
-        {/* Logout Button */}
+        {/* Auth Button */}
         <div className="mt-auto pt-6 border-t border-gray-200">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 active:scale-[0.98] transition"
-          >
-            <LogOut size={20} />
-            Logout
-          </button>
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 active:scale-[0.98] transition"
+            >
+              <LogOut size={20} />
+              Logout
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                onLoginClick();
+                setIsSidebarOpen(false);
+              }}
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 active:scale-[0.98] transition"
+            >
+              <LogIn size={20} />
+              Login
+            </button>
+          )}
         </div>
       </div>
     </div>

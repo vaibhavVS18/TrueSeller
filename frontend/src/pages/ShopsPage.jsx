@@ -12,17 +12,24 @@ export default function ShopsPage() {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [page, setPage] = useState(1);
+  const [limit] = useState(8); // products per page
+  const [totalPages, setTotalPages] = useState(1);
+
+
   // Fetch shops with optional filters
   const fetchShops = async (filters = {}) => {
     try {
       setLoading(true);
-      const params = {};
+      const params = {page, limit};
       if (filters.query) params.search = filters.query;
       if (filters.category) params.category = filters.category;
       if (filters.city) params.city = filters.city;
 
       const res = await axios.get("/api/shops", { params });
       setShops(res.data.shops || []);
+      setTotalPages(res.data.pagination?.totalPages || 1);
+
     } catch (err) {
       console.error("❌ Error fetching shops:", err.message);
     } finally {
@@ -57,8 +64,13 @@ export default function ShopsPage() {
 
   // Refetch shops whenever filters change
   useEffect(() => {
+    setPage(1);
     fetchShops({ query, category, city });
   }, [query, category, city]);
+
+  useEffect(() => {
+    fetchShops({ query, category, city });
+  }, [page]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -124,6 +136,7 @@ export default function ShopsPage() {
       ) : shops.length === 0 ? (
         <p className="text-center text-gray-500">No shops found.</p>
       ) : (
+        <>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {shops.map((shop) => (
             <Link
@@ -160,6 +173,28 @@ export default function ShopsPage() {
             </Link>
           ))}
         </div>
+
+                        {/* Pagination */}
+      <div className="flex justify-center mt-6 space-x-2">
+        <button
+          disabled={page === 1}
+          onClick={() => setPage((p) => p - 1)}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span>
+          Page {page} of {totalPages}
+        </span>
+        <button
+          disabled={page === totalPages}
+          onClick={() => setPage((p) => p + 1)}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+      </>
       )}
     </div>
   );

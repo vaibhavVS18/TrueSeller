@@ -11,10 +11,12 @@ import {
   PackageSearch,
   Search,
   Menu,
-  X, Home, User
+  X,
+  Home,
+  User,
 } from "lucide-react";
 
-const Navbar = ({ onLoginClick , onTabChange}) => {
+const Navbar = ({ onLoginClick }) => {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -26,8 +28,7 @@ const Navbar = ({ onLoginClick , onTabChange}) => {
       setUser(null);
       setIsSidebarOpen(false); // ✅ close sidebar
       navigate("/");
-    } 
-    catch (err) {
+    } catch (err) {
       console.error(err.response?.data || err.message);
     }
   };
@@ -38,9 +39,9 @@ const Navbar = ({ onLoginClick , onTabChange}) => {
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link
-         to={"/"}
-         className="text-xl md:text-2xl font-extrabold text-blue-700 cursor-pointer"
-         >
+          to={"/"}
+          className="text-xl md:text-2xl font-extrabold text-blue-700 cursor-pointer"
+        >
           TrueSeller
         </Link>
 
@@ -86,19 +87,24 @@ const Navbar = ({ onLoginClick , onTabChange}) => {
         {/* Right Side */}
         <div className="flex items-center space-x-4">
           {/* Cart Icon */}
-          <div className="relative cursor-pointer text-gray-700 hover:text-blue-700">
-            <ShoppingCart size={26} />
-            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-1.5 rounded-full">
-              2
-            </span>
-          </div>
+          {
+            user && (
+            <div className="relative cursor-pointer text-gray-700 hover:text-blue-700">
+              <ShoppingCart size={26} />
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-1.5 rounded-full">
+                2
+              </span>
+            </div>
+            )
+          }
+
 
           {/* Login/Profile */}
           {user ? (
             <>
-              <Link 
-              to="/profilePage"
-              className="w-10 h-10 rounded-full overflow-hidden border-2 border-emerald-500 hover:border-cyan-400 transition-all"
+              <Link
+                to="/profilePage"
+                className="w-10 h-10 rounded-full overflow-hidden border-2 border-emerald-500 hover:border-cyan-400 transition-all"
               >
                 <img
                   src={`${user.profileImage}`}
@@ -115,47 +121,62 @@ const Navbar = ({ onLoginClick , onTabChange}) => {
               Login
             </button>
           )}
-        
-            {/* Sidebar Toggle Icon */}
-            <button
-                onClick={() => setIsSidebarOpen(true)}
-                className="p-2 text-gray-700 hover:text-blue-700"
-            >
-                <Menu size={28} />
-            </button>          
+
+          {/* Sidebar Toggle Icon */}
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="p-2 text-gray-700 hover:text-blue-700"
+          >
+            <Menu size={28} />
+          </button>
         </div>
       </div>
 
       {/* Mobile Quick Nav Strip */}
       <div className="fixed bottom-0 left-0 w-full z-40 md:hidden bg-white border-t shadow-md py-2 flex justify-around items-center text-gray-700 text-xs font-medium safe-bottom">
-        <Link to="/" className="flex flex-col items-center hover:text-blue-600 transition-all">
+        <Link
+          to="/"
+          className="flex flex-col items-center hover:text-blue-600 transition-all"
+        >
           <Home size={20} />
           <span>Home</span>
         </Link>
 
-        <Link to="/productsPage" className="flex flex-col items-center hover:text-blue-600 transition-all">
+        <Link
+          to="/productsPage"
+          className="flex flex-col items-center hover:text-blue-600 transition-all"
+        >
           <PackageSearch size={20} />
           <span>Products</span>
         </Link>
 
-        <Link to="/shopsPage" className="flex flex-col items-center hover:text-blue-600 transition-all">
+        <Link
+          to="/shopsPage"
+          className="flex flex-col items-center hover:text-blue-600 transition-all"
+        >
           <Store size={20} />
           <span>Shops</span>
         </Link>
 
-        <Link to="/start-shop" className="flex flex-col items-center hover:text-blue-600 transition-all">
+        <Link
+          to="/start-shop"
+          className="flex flex-col items-center hover:text-blue-600 transition-all"
+        >
           <ShoppingBag size={20} />
           <span>Sell</span>
         </Link>
 
-        <Link to="/profilePage" className="flex flex-col items-center hover:text-blue-600 transition-all">
+        <Link
+          to={user? "/profilePage": "#"}
+          onClick={!user && onLoginClick}
+          className="flex flex-col items-center hover:text-blue-600 transition-all"
+        >
           <User size={20} />
           <span>Profile</span>
         </Link>
       </div>
 
-
-          {/* Mobile Bottom Nav */}
+      {/* Mobile Bottom Nav */}
       {/* <div className="fixed bottom-0 left-0 w-full z-40 md:hidden bg-white border-t shadow-md py-2 flex justify-around items-center text-gray-700 text-xs font-medium safe-bottom">
         <button
           onClick={() => onTabChange("home")}
@@ -213,7 +234,12 @@ const Navbar = ({ onLoginClick , onTabChange}) => {
       </div> */}
 
       {/* Sidebar Overlay */}
-        <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} handleLogout={handleLogout}/>
+      <Sidebar
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+        handleLogout={handleLogout}
+        onLoginClick={onLoginClick}
+      />
     </header>
   );
 };
