@@ -1,0 +1,30 @@
+import React from 'react'
+import {Route, Routes, BrowserRouter} from "react-router-dom";
+import Layout from '../components/Layout.jsx';
+import Home from "../pages/Home.jsx";
+import ShopForm from '../pages/ShopForm.jsx';
+import Shop from "../pages/Shop.jsx";
+import Product from '../pages/Product.jsx';
+import ProductsPage from '../pages/ProductsPage.jsx';
+import ShopsPage from '../pages/ShopsPage.jsx';
+import ProfilePage from '../pages/ProfilePage.jsx';
+
+const AppRoutes = () => {
+  return (
+    <BrowserRouter>
+        <Routes>
+            <Route element={<Layout/>}>
+                <Route path="/" element={<Home/>} />
+                <Route path="/start-shop" element={<ShopForm/>} />
+                <Route path="/shop/:shopId" element={<Shop/>} />
+                <Route path="/product/:productId" element={<Product/>} />
+                <Route path="/productsPage" element={<ProductsPage/>} />
+                <Route path="/shopsPage" element={<ShopsPage/>} />
+                <Route path="/profilePage" element={<ProfilePage/>} />
+            </Route>
+        </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default AppRoutes

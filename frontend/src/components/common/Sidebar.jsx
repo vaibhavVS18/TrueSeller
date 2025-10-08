@@ -1,0 +1,92 @@
+// Sidebar.jsx
+import React, {useContext} from "react";
+import { X, Store, ShoppingBag, ShoppingCart, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../../context/user.context";
+
+const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout }) => {
+  if (!isSidebarOpen) return null;
+
+  const {user} = useContext(UserContext);
+  return (
+    <div className="fixed inset-0 z-50 flex">
+      {/* Background Overlay */}
+      <div
+        className="flex-1 bg-black/50 backdrop-blur-sm"
+        onClick={() => setIsSidebarOpen(false)}
+      ></div>
+
+      {/* Sidebar */}
+      <div className="w-72 bg-white shadow-2xl h-full flex flex-col p-6 relative animate-slide-left">
+        {/* Close Button */}
+        <button
+          onClick={() => setIsSidebarOpen(false)}
+          className="absolute top-4 right-4 text-gray-600 hover:text-red-500 transition"
+        >
+          <X size={26} />
+        </button>
+
+        {/* User Info */}
+        <div className="flex flex-col items-center mt-6 mb-8">
+          <Link 
+          to="/profilePage"
+          className="w-30 h-30 rounded-full overflow-hidden border-4 border-emerald-400 shadow-md"
+          onClick={() => setIsSidebarOpen(false)}
+          >
+            <img
+              src={user?.profileImage || "/default-profile.png"}
+              alt={user?.email || "User"}
+              className="w-full h-full object-cover"
+            />
+          </Link>
+          <p className="mt-3 text-gray-800 font-medium text-center truncate w-full">
+            {user?.email || "Guest"}
+          </p>
+        </div>
+
+        {/* Navigation Links */}
+        <nav className="flex-1">
+          <Link
+            to="/start-shop"
+            className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 p-3 rounded-lg transition font-medium"
+            onClick={() => setIsSidebarOpen(false)}
+          >
+            <Store size={20} />
+            My Shops
+          </Link>
+
+          <Link
+            to="/productsPage"
+            className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 p-3 rounded-lg transition font-medium"
+            onClick={() => setIsSidebarOpen(false)}
+          >
+            <ShoppingBag size={20} />
+            Explore Products
+          </Link>
+
+          <Link
+            to="/shopsPage"
+            className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 p-3 rounded-lg transition font-medium"
+            onClick={() => setIsSidebarOpen(false)}
+          >
+            <ShoppingCart size={20} />
+            Explore Shops
+          </Link>
+        </nav>
+
+        {/* Logout Button */}
+        <div className="mt-auto pt-6 border-t border-gray-200">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 active:scale-[0.98] transition"
+          >
+            <LogOut size={20} />
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;
