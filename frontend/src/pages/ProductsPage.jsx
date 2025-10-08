@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../config/axios";
 import { Link } from "react-router-dom";
+import Loader from "../components/common/Loader";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -92,7 +93,7 @@ const [totalPages, setTotalPages] = useState(1);
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition w-full sm:w-auto"
+          className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 transition w-full sm:w-auto"
         >
           Search
         </button>
@@ -129,7 +130,7 @@ const [totalPages, setTotalPages] = useState(1);
 
       {/* Products Grid */}
       {loading ? (
-        <p className="text-center text-gray-500">Loading products...</p>
+        <Loader/>
       ) : products.length === 0 ? (
         <p className="text-center text-gray-500">No products found.</p>
       ) : (

@@ -28,6 +28,7 @@ const slides = [
 ];
 
 const HeroCarousel = () => {
+
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -38,20 +39,7 @@ const HeroCarousel = () => {
   }, []);
 
   return (
-    <div
-      className="
-        relative
-        w-full sm:w-[85%] md:w-[70%] lg:w-[520px] xl:w-[600px]
-        aspect-square
-        mx-auto lg:mx-0 lg:ml-auto
-        overflow-hidden
-        rounded-3xl
-        shadow-2xl
-        border border-gray-700/40
-        transition-all duration-500
-      "
-    >
-      {/* Slides */}
+    <div className="relative flex-1 max-w-[350px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[520px] xl:max-w-[600px] aspect-square mx-auto lg:mx-0 lg:ml-auto overflow-hidden rounded-3xl shadow-2xl border border-gray-700/40 transition-all duration-500">
       {slides.map((slide, index) => (
         <div
           key={index}
@@ -64,32 +52,15 @@ const HeroCarousel = () => {
             alt={slide.title}
             className="w-full h-full object-contain"
           />
-
-          {/* Optional overlay for gradient fade bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent" />
-
-          {/* Text overlay */}
-          <div className="absolute bottom-5 left-0 right-0 text-center px-4">
-            <h2 className="text-xl md:text-3xl font-bold text-white drop-shadow-lg mb-1">
-              {slide.title}
-            </h2>
-            <p className="text-sm md:text-base text-gray-300 leading-snug">
-              {slide.desc1}
-            </p>
-            <p className="text-sm md:text-base text-gray-300 leading-snug">
-              {slide.desc2}
-            </p>
-          </div>
         </div>
       ))}
 
-      {/* Dots Navigation */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrent(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === current
                 ? "bg-white scale-110 shadow-md"
                 : "bg-gray-500 hover:bg-gray-300"

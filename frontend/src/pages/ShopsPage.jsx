@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../config/axios";
 import { Link } from "react-router-dom";
+import Loader from "../components/common/Loader";
 
 export default function ShopsPage() {
   const [shops, setShops] = useState([]);
@@ -93,7 +94,7 @@ export default function ShopsPage() {
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition w-full sm:w-auto"
+          className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 transition w-full sm:w-auto"
         >
           Search
         </button>
@@ -132,7 +133,7 @@ export default function ShopsPage() {
 
       {/* Shops Grid */}
       {loading ? (
-        <p className="text-center text-gray-500">Loading shops...</p>
+        <Loader/>
       ) : shops.length === 0 ? (
         <p className="text-center text-gray-500">No shops found.</p>
       ) : (

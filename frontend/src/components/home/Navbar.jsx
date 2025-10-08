@@ -38,18 +38,20 @@ const Navbar = ({ onLoginClick }) => {
       {/* Top Navbar Row */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link
-          to={"/"}
-          className="text-xl md:text-2xl font-extrabold text-blue-700 cursor-pointer"
-        >
-          TrueSeller
+        <Link to={"/"} className="cursor-pointer">
+          <img 
+            src="/logo.png" 
+            alt="TrueSeller Logo" 
+            className="h-11 md:h-11 object-contain" 
+          />
         </Link>
+
 
         {/* Desktop Nav + Search */}
         <div className="hidden md:flex items-center flex-1 justify-center space-x-6">
           <Link
             to="/productsPage"
-            className="flex items-center space-x-2 text-gray-700 hover:text-blue-700 font-medium"
+            className="flex items-center space-x-2 text-gray-700 hover:text-emerald-500 font-medium"
           >
             <PackageSearch size={20} />
             <span>Products</span>
@@ -57,7 +59,7 @@ const Navbar = ({ onLoginClick }) => {
 
           <Link
             to="/shopsPage"
-            className="flex items-center space-x-2 text-gray-700 hover:text-blue-700 font-medium"
+            className="flex items-center space-x-2 text-gray-700 hover:text-emerald-500 font-medium"
           >
             <Store size={20} />
             <span>Shops</span>
@@ -65,7 +67,7 @@ const Navbar = ({ onLoginClick }) => {
 
           <Link
             to="/start-shop"
-            className="flex items-center space-x-2 text-gray-700 hover:text-blue-700 font-medium"
+            className="flex items-center space-x-2 text-gray-700 hover:text-emerald-500 font-medium"
           >
             <ShoppingBag size={20} />
             <span>Sell</span>
@@ -78,7 +80,7 @@ const Navbar = ({ onLoginClick }) => {
               placeholder="Search products or shops..."
               className="w-full px-4 py-2 border border-gray-300 rounded-full text-sm text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
-            <button className="bg-blue-700 text-white px-4 py-2 rounded-full ml-1 hover:bg-blue-800 transition">
+            <button className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white px-4 py-2 rounded-full ml-1 hover:bg-blue-800 transition">
               <Search size={18} />
             </button>
           </div>
@@ -98,7 +100,6 @@ const Navbar = ({ onLoginClick }) => {
             )
           }
 
-
           {/* Login/Profile */}
           {user ? (
             <>
@@ -116,7 +117,7 @@ const Navbar = ({ onLoginClick }) => {
           ) : (
             <button
               onClick={onLoginClick}
-              className="px-6 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white font-medium shadow-md hover:shadow-emerald-500/30 transition-all"
+              className="px-6 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white font-medium shadow-md transition-all"
             >
               Login
             </button>
@@ -168,7 +169,8 @@ const Navbar = ({ onLoginClick }) => {
 
         <Link
           to={user? "/profilePage": "#"}
-          onClick={!user && onLoginClick}
+          onClick={!user && onLoginClick
+}
           className="flex flex-col items-center hover:text-blue-600 transition-all"
         >
           <User size={20} />
