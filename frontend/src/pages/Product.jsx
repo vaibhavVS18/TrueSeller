@@ -4,7 +4,7 @@ import axios from "../config/axios.js";
 import Loader from "../components/common/Loader.jsx";
 import { UserContext } from "../context/user.context.jsx";
 import { uploadImageToCloudinary } from "../config/cloudinary.js";
-import ImageCarousel from "../components/product/imageCarousel.jsx";
+import ImageCarousel from "../components/product/ImageCarousel.jsx";
 
 export default function Product() {
   const { productId } = useParams();
