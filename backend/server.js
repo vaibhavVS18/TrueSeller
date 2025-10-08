@@ -14,7 +14,13 @@ dotenv.config();
 connect();
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://trueseller.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
