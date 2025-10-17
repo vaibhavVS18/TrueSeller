@@ -8,6 +8,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
 
     axios
       .post("/api/users/login", { email, password })
@@ -26,6 +28,11 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
       })
       .catch((err) => {
         console.error(err.response?.data || err.message);
+        setError(
+          err.response?.data ||
+            err.response?.data?.errors ||
+            "Something went wrong. Please try again."
+        );      
       })
       .finally(() => setLoading(false));
   };
@@ -73,13 +80,19 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
               Email
             </label>
             <input
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+              }}
               type="email"
               id="email"
               placeholder="Enter your email"
               required
-              className="w-full py-3 px-4 rounded-lg bg-gray-50 border border-gray-300 text-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all text-sm sm:text-base"
-            />
+              className={`w-full py-3 px-4 rounded-lg bg-gray-50 border text-emerald-800 text-sm sm:text-base
+                            ${error? "border-red-600" : "border-gray-300"} focus:outline-none focus:ring-2
+                            ${error? "focus:ring-red-600" : "focus:ring-emerald-400"} transition-all 
+                        `}           
+             />
           </div>
 
           <div>
@@ -90,13 +103,23 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
               Password
             </label>
             <input
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError("");
+              }}
               type="password"
               id="password"
               placeholder="Enter your password"
               required
-              className="w-full py-3 px-4 rounded-lg bg-gray-50 border border-gray-300 text-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all text-sm sm:text-base"
+              className={`w-full py-3 px-4 rounded-lg bg-gray-50 border text-emerald-800 text-sm sm:text-base
+                            ${error? "border-red-600" : "border-gray-300"} focus:outline-none focus:ring-2
+                            ${error? "focus:ring-red-600" : "focus:ring-emerald-400"} transition-all 
+                        `}            
             />
+
+            {error && (
+              <p className="text-red-600 text-xs mt-2">{error}</p>
+            )}
           </div>
 
           <button

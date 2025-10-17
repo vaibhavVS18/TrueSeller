@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "../../config/axios";
 import { UserContext } from "../../context/user.context";
 import Sidebar from "../common/Sidebar";
@@ -20,6 +20,7 @@ const Navbar = ({ onLoginClick }) => {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const loaction = useLocation();
 
   const handleLogout = async () => {
     try {
@@ -137,7 +138,9 @@ const Navbar = ({ onLoginClick }) => {
       <div className="fixed bottom-0 left-0 w-full z-40 md:hidden bg-white border shadow-md py-2 flex justify-around items-center text-gray-700 text-xs font-medium safe-bottom">
         <Link
           to="/"
-          className="flex flex-col items-center hover:text-blue-600 transition-all"
+          className={`flex flex-col items-center hover:text-emerald-600 transition-all
+            ${location.pathname=== "/" ? "text-emerald-500 font-semibold": null}
+          `}
         >
           <Home size={20} />
           <span>Home</span>
@@ -145,95 +148,42 @@ const Navbar = ({ onLoginClick }) => {
 
         <Link
           to="/productsPage"
-          className="flex flex-col items-center hover:text-blue-600 transition-all"
-        >
+          className={`flex flex-col items-center hover:text-emerald-600 transition-all
+            ${location.pathname=== "/productsPage" ? "text-emerald-500 font-semibold": null}
+          `}        >
           <PackageSearch size={20} />
           <span>Products</span>
         </Link>
 
         <Link
           to="/shopsPage"
-          className="flex flex-col items-center hover:text-blue-600 transition-all"
-        >
+          className={`flex flex-col items-center hover:text-emerald-600 transition-all
+            ${location.pathname=== "/shopsPage" ? "text-emerald-500 font-semibold": null}
+          `}        >
           <Store size={20} />
           <span>Shops</span>
         </Link>
 
         <Link
           to="/start-shop"
-          className="flex flex-col items-center hover:text-blue-600 transition-all"
-        >
+          className={`flex flex-col items-center hover:text-emerald-600 transition-all
+            ${location.pathname=== "/start-shop" ? "text-emerald-500 font-semibold": null}
+          `}        >
           <ShoppingBag size={20} />
           <span>Sell</span>
         </Link>
 
         <Link
           to={user? "/profilePage": "#"}
-          onClick={!user && onLoginClick
-}
-          className="flex flex-col items-center hover:text-blue-600 transition-all"
-        >
+          onClick={!user && onLoginClick}
+
+          className={`flex flex-col items-center hover:text-emerald-600 transition-all
+            ${location.pathname=== "/profilePage" ? "text-emerald-500 font-semibold": null}
+          `}        >
           <User size={20} />
           <span>Profile</span>
         </Link>
       </div>
-
-      {/* Mobile Bottom Nav */}
-      {/* <div className="fixed bottom-0 left-0 w-full z-40 md:hidden bg-white border-t shadow-md py-2 flex justify-around items-center text-gray-700 text-xs font-medium safe-bottom">
-        <button
-          onClick={() => onTabChange("home")}
-          className="flex flex-col items-center hover:text-blue-600 transition-all"
-        >
-          <Home size={20} />
-          <span>Home</span>
-        </button>
-
-        <button
-          onClick={() => onTabChange("products")}
-          className="flex flex-col items-center hover:text-blue-600 transition-all"
-        >
-          <PackageSearch size={20} />
-          <span>Products</span>
-        </button>
-
-        <button
-          onClick={() => onTabChange("shops")}
-          className="flex flex-col items-center hover:text-blue-600 transition-all"
-        >
-          <Store size={20} />
-          <span>Shops</span>
-        </button>
-
-        <button
-          onClick={() => onTabChange("sell")}
-          className="flex flex-col items-center hover:text-blue-600 transition-all"
-        >
-          <ShoppingBag size={20} />
-          <span>Sell</span>
-        </button>
-
-        <Link
-          to="/profile"
-          className="flex flex-col items-center hover:text-blue-600 transition-all"
-        >
-          <User size={20} />
-          <span>Profile</span>
-        </Link>
-      </div> */}
-
-      {/* Mobile Search Bar */}
-      {/* <div className="md:hidden px-4 py-2 bg-gray-50 border rounded">
-        <div className="flex items-center">
-          <input
-            type="text"
-            placeholder="Search products or shops..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-full text-sm text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-full ml-1 hover:bg-blue-700 transition">
-            <Search size={18} />
-          </button>
-        </div>
-      </div> */}
 
       {/* Sidebar Overlay */}
       <Sidebar

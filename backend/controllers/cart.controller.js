@@ -11,46 +11,17 @@ export const getCartController = async (req, res) => {
   }
 };
 
-// Add product to cart
-export const addToCartController = async (req, res) => {
+// toggle product in cart (Add/Remove)
+export const toggleCartItemController = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
   try {
-    const { product, shop, quantity } = req.body;
-    const cart = await cartService.addToCart(req.user._id, product, shop, quantity || 1);
+    const { productId } = req.body;
+    const cart = await cartService.toggleCartItem(req.user._id, productId);
     res.status(200).json(cart);
   } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
-
-// Update quantity of a cart item
-export const updateCartItemController = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-
-  try {
-    const { productId } = req.params;
-    const { quantity } = req.body;
-    const cart = await cartService.updateCartItem(req.user._id, productId, quantity);
-    res.status(200).json(cart);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
-
-// Remove product from cart
-export const removeCartItemController = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-
-  try {
-    const { productId } = req.params;
-    const cart = await cartService.removeCartItem(req.user._id, productId);
-    res.status(200).json(cart);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 };
 
