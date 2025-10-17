@@ -1,15 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import HeroSection1 from "../components/home/HeroSection1";
 import HeroCarousel from "../components/home/HeroCarousel";
-// HeroCarousel Component
 
-
-// HeroSection1 Component
-
-
-
-
-// Home Component
 const Home = () => {
   return (
     <div className="flex flex-col lg:flex-row items-center justify-between gap-3 sm:gap-4 lg:gap-10 px-4 sm:px-6 lg:px-20 py-6 lg:py-5 ">
