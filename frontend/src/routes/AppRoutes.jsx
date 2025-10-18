@@ -8,6 +8,8 @@ import Product from '../pages/Product.jsx';
 import ProductsPage from '../pages/ProductsPage.jsx';
 import ShopsPage from '../pages/ShopsPage.jsx';
 import ProfilePage from '../pages/ProfilePage.jsx';
+import WishlistPage from '../pages/WishListPage.jsx';
+import CartPage from '../pages/CartPage.jsx';
 
 const AppRoutes = () => {
   return (
@@ -21,6 +23,8 @@ const AppRoutes = () => {
                 <Route path="/productsPage" element={<ProductsPage/>} />
                 <Route path="/shopsPage" element={<ShopsPage/>} />
                 <Route path="/profilePage" element={<ProfilePage/>} />
+                <Route path="/wishlistPage" element={<WishlistPage/>} />
+                <Route path="/cartPage" element={<CartPage/>} />
             </Route>
         </Routes>
     </BrowserRouter>

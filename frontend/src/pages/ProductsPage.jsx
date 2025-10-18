@@ -2,13 +2,15 @@ import React, { useState, useEffect , useContext} from "react";
 import axios from "../config/axios";
 import { Link } from "react-router-dom";
 import Loader from "../components/common/Loader";
-import {Heart, Loader2} from "lucide-react";
+import {Heart, Loader2, ShoppingCart} from "lucide-react";
 import { UserContext } from "../context/user.context";
 import { ModalContext } from "../context/modal.context";
+import { CartContext } from "../context/cart.context";
 
 export default function ProductsPage() {
   const {user} = useContext(UserContext);
   const {setIsLoginOpen} = useContext(ModalContext);
+  const {addToCart} = useContext(CartContext);
 
   const [products, setProducts] = useState([]);
   const [query, setQuery] = useState("");
@@ -68,7 +70,7 @@ export default function ProductsPage() {
 
   const fetchWishlist = async()=>{
     try{
-      const res = await axios.get("/api/carts");
+      const res = await axios.get("/api/wishlists");
       // setWishlist(res.data)
       console.log(res.data.products);
       setWishlist(res.data?.products || []);
@@ -81,7 +83,7 @@ export default function ProductsPage() {
   const toggleWishlist = async(productId)=>{
     try{
       setWishlistLoading(productId);
-      const res = await axios.post("/api/carts/toggle", {productId});
+      const res = await axios.post("/api/wishlists/toggle", {productId});
       // console.log(res.data);
 
       setWishlist((prev)=>{
@@ -126,18 +128,18 @@ export default function ProductsPage() {
       {/* Search Bar */}
       <form
         onSubmit={handleSearch}
-        className="flex flex-col sm:flex-row items-center gap-3 mb-3 max-w-3xl mx-auto"
+        className="flex items-center gap-3 mb-3 max-w-3xl mx-auto"
       >
         <input
           type="text"
           placeholder="Search products..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+          className="w-full border border-emerald-300 rounded-lg px-4 py-2 shadow-sm focus:ring-2 focus:ring-emerald-500 outline-none"
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 transition w-full sm:w-auto"
+          className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 transition w-auto"
         >
           Search
         </button>
@@ -148,7 +150,7 @@ export default function ProductsPage() {
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-400"
+          className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:ring-2 focus:ring-cyan-600"
         >
           <option value="">All Categories</option>
           {categories.map((cat, idx) => (
@@ -161,7 +163,7 @@ export default function ProductsPage() {
         <select
           value={shop}
           onChange={(e) => setShop(e.target.value)}
-          className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-400"
+          className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:ring-2 focus:ring-cyan-600"
         >
           <option value="">All Shops</option>
           {shops.map((s) => (
@@ -193,8 +195,8 @@ export default function ProductsPage() {
                 className={`absolute top-3 right-3 z-20 cursor-pointer 
                             flex items-center justify-center 
                             rounded-full p-1 transition-colors duration-200 border border-emerald-400
-                            ${wishlist.includes(product._id) ? "bg-cyan-100" : "bg-gray-100"} 
-                            hover:bg-cyan-100 disabled:opacity-70`}  // also can keep 'disabled:cursor-not-allowed'
+                            ${wishlist.includes(product._id) ? "bg-gray-100" : "bg-gray-100"} 
+                            hover:bg-emerald-100 disabled:opacity-70`}  // also can keep 'disabled:cursor-not-allowed'
               >
                 {wishlistLoading === product._id ? (
                   <Loader2 size={18} className="animate-spin text-emerald-500" />
@@ -202,15 +204,13 @@ export default function ProductsPage() {
                 <Heart
                   size={22}
                   color={wishlist.includes(product._id) ? "#33c292ff" : "#10B981"}   // emerald
-                  fill={wishlist.includes(product._id) ? "#36d7a1ff" : "none"}        // cyan
+                  fill={wishlist.includes(product._id) ? "#33c292ff" : "none"}        // cyan
                 />
                 )}
-
               </button>
 
               <Link
               to={`/product/${product._id}`}
-
               >
                 {/* Image with hover zoom */}
                 <div className="overflow-hidden h-40 rounded-lg mb-3">
@@ -223,20 +223,41 @@ export default function ProductsPage() {
 
                 {/* Name + Price */}
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="font-semibold text-gray-900 text-lg hover:text-blue-600 transition-colors">
+                  <h3 className="font-semibold text-gray-900 text-lg hover:text-emerald-600 transition-colors">
                     {product.name}
                   </h3>
-                  <p className="text-blue-600 font-bold text-lg">₹{product.price}</p>
+                  <p className="text-emerald-600 font-bold text-lg">
+                    ₹{product.price}
+                  </p>
                 </div>
 
                 {/* Category & Shop */}
-                <div className="mt-auto pt-2 text-sm text-gray-500 border-t">
-                  <p className="hover:text-gray-800 transition-colors">
-                    Category: {product.category || "—"}
-                  </p>
-                  <p className="hover:text-gray-800 font-bold text-gray-450 transition-colors">
-                    Shop: {product.shop?.shopname || "—"}
-                  </p>
+                <div className="flex items-center justify-between mt-auto pt-2 text-sm text-gray-500 border-t">
+                  <div>
+                    <p className="hover:text-gray-800 transition-colors">
+                      Category: {product.category || "—"}
+                    </p>
+                    <p className="hover:text-gray-800 font-bold text-gray-450 transition-colors">
+                      Shop: {product.shop?.shopname || "—"}
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();        // prevent the Link from triggering
+                      e.stopPropagation();       // stop the click from bubbling up
+                      user ? addToCart(product, product.shop?._id): setIsLoginOpen(true);
+                    }}
+                    className="flex items-center gap-2 border border-cyan-600 text-cyan-700 
+                              hover:bg-cyan-600 hover:text-white hover:shadow-lg hover:border-white
+                              font-medium px-4 py-2 rounded-full transition-all duration-300 
+                              hover:-translate-y-0.5 active:scale-95"
+                  >
+                    <span>Add to Cart</span>
+                    <ShoppingCart size={18} />
+                  </button>
+
+
                 </div>
               </Link>
             </div>

@@ -7,7 +7,7 @@ import userRoutes from "./routes/user.routes.js";
 import shopRoutes from "./routes/shop.routes.js";
 import productRoutes from "./routes/product.routes.js";
 import orderRoutes from "./routes/order.routes.js";
-import cartRoutes from "./routes/cart.routes.js";
+import wishlistRoutes from "./routes/wishlist.routes.js";
 
 dotenv.config();
 
@@ -61,7 +61,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/shops", shopRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
-app.use("/api/carts", cartRoutes);
+app.use("/api/wishlists", wishlistRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{

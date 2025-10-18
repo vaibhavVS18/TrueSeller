@@ -3,9 +3,11 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "../../config/axios";
 import { UserContext } from "../../context/user.context";
 import Sidebar from "../common/Sidebar";
+import { CartContext } from "../../context/cart.context";
 
 import {
   ShoppingCart,
+  Heart,
   ShoppingBag,
   Store,
   PackageSearch,
@@ -18,16 +20,18 @@ import {
 
 const Navbar = ({ onLoginClick }) => {
   const { user, setUser } = useContext(UserContext);
+  const {totalItems} = useContext(CartContext);
+
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const loaction = useLocation();
+  const location = useLocation();
 
   const handleLogout = async () => {
     try {
       await axios.post("/api/users/logout");
       localStorage.removeItem("token");
       setUser(null);
-      setIsSidebarOpen(false); // ✅ close sidebar
+      setIsSidebarOpen(false); // close sidebar
       navigate("/");
     } catch (err) {
       console.error(err.response?.data || err.message);
@@ -52,7 +56,9 @@ const Navbar = ({ onLoginClick }) => {
         <div className="hidden md:flex items-center flex-1 justify-center space-x-6">
           <Link
             to="/productsPage"
-            className="flex items-center space-x-2 text-gray-700 hover:text-emerald-500 font-medium"
+            className={`flex items-center space-x-2 hover:text-emerald-500 font-medium
+                        ${location.pathname=== "/productsPage" ? "text-emerald-500 font-semibold": "text-gray-700"}
+              `}
           >
             <PackageSearch size={20} />
             <span>Products</span>
@@ -60,7 +66,9 @@ const Navbar = ({ onLoginClick }) => {
 
           <Link
             to="/shopsPage"
-            className="flex items-center space-x-2 text-gray-700 hover:text-emerald-500 font-medium"
+            className={`flex items-center space-x-2 hover:text-emerald-500 font-medium
+                                    ${location.pathname=== "/shopsPage" ? "text-emerald-500 font-semibold": "text-gray-700"}
+              `}
           >
             <Store size={20} />
             <span>Shops</span>
@@ -68,7 +76,9 @@ const Navbar = ({ onLoginClick }) => {
 
           <Link
             to="/start-shop"
-            className="flex items-center space-x-2 text-gray-700 hover:text-emerald-500 font-medium"
+            className={`flex items-center space-x-2 hover:text-emerald-500 font-medium
+                        ${location.pathname=== "/start-shop" ? "text-emerald-500 font-semibold": "text-gray-700"}
+              `}
           >
             <ShoppingBag size={20} />
             <span>Sell</span>
@@ -89,17 +99,49 @@ const Navbar = ({ onLoginClick }) => {
 
         {/* Right Side */}
         <div className="flex items-center space-x-4">
-          {/* Cart Icon */}
           {
             user && (
-            <div className="relative cursor-pointer text-gray-700 hover:text-blue-700">
-              <ShoppingCart size={26} />
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-1.5 rounded-full">
-                2
-              </span>
-            </div>
+              <Link
+                to="/wishlistPage"
+                className={`relative cursor-pointer hover:text-emerald-600
+                            ${location.pathname === "/wishlistPage" ? "text-emerald-600" : "text-gray-700"}
+                            flex flex-col items-center justify-center`}
+              >
+                <Heart 
+                  size={22} 
+                  fill="#c5f6e5ff" 
+                />
+                <span className="text-sm text-cyan-700 font-medium hover:text-cyan-600">Wishlist</span>
+              </Link>
             )
           }
+
+{
+  user && totalItems !== 0 && (
+    <Link
+      to="/cartPage"
+      className={`relative cursor-pointer hover:text-emerald-600
+                  ${location.pathname === "/cartpage" ? "text-emerald-600" : "text-gray-700"} 
+                  flex flex-col items-center justify-center`}
+    >
+      <div className="relative">
+        <ShoppingCart size={24} />
+
+        <span
+          className="absolute -top-2 -right-2 bg-red-500 text-white text-[12px]
+                     font-semibold w-5 h-5 flex items-center justify-center rounded-full shadow-md"
+        >
+          {totalItems}
+        </span>
+      </div>
+
+      <span className="text-sm font-medium text-cyan-700 hover:text-cyan-600">
+        Cart
+      </span>
+    </Link>
+  )
+}
+
 
           {/* Login/Profile */}
           {user ? (
@@ -159,7 +201,8 @@ const Navbar = ({ onLoginClick }) => {
           to="/shopsPage"
           className={`flex flex-col items-center hover:text-emerald-600 transition-all
             ${location.pathname=== "/shopsPage" ? "text-emerald-500 font-semibold": null}
-          `}        >
+          `}        
+        >
           <Store size={20} />
           <span>Shops</span>
         </Link>

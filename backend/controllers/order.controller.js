@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import Order from "../models/order.model.js";
-import Cart from "../models/cart.model.js";
+import Wishlist from "../models/wishlist.model.js";
 import * as orderService from "../services/order.service.js";
 
 // Create a new order

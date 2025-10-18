@@ -83,18 +83,18 @@ export default function ShopsPage() {
       {/* Search Bar */}
       <form
         onSubmit={handleSearch}
-        className="flex flex-col sm:flex-row items-center gap-3 mb-3 max-w-3xl mx-auto"
+        className="flex flex-row items-center gap-3 mb-3 max-w-3xl mx-auto"
       >
         <input
           type="text"
           placeholder="Search shops..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 outline-none"
+          className="w-full border border-emerald-300 rounded-lg px-3 py-2 shadow-sm focus:ring-2 focus:ring-emerald-400 outline-none"
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 transition w-full sm:w-auto"
+          className="text-white px-6 py-2 rounded-lg shadow bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 transition w-auto"
         >
           Search
         </button>

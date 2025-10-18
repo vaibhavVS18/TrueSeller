@@ -7,11 +7,7 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    shop: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Shop",
-      required: true,
-    },
+
     products: [
       {
         product: {
@@ -21,6 +17,11 @@ const orderSchema = new mongoose.Schema(
         },
         quantity: { type: Number, default: 1 },
         priceAtPurchase: { type: Number, required: true }, // important for historical accuracy
+        shop: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Shop",
+          required: true,
+        },
       },
     ],
     totalPrice: {

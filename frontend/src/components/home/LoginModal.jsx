@@ -23,7 +23,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
-        navigate("/");
+        // navigate("/");
         onClose();
       })
       .catch((err) => {

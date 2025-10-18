@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const cartSchema = new mongoose.Schema(
+const wishlistSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -18,6 +18,5 @@ const cartSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// No pre-save here, we’ll calculate in controller when fetching
-const Cart = mongoose.model("Cart", cartSchema);
-export default Cart;
+const Wishlist = mongoose.model("Wishlist", wishlistSchema);
+export default Wishlist;
