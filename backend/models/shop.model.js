@@ -11,7 +11,7 @@ const shopSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true, // ensure shop names are unique
-      trim: true, 
+      trim: true,
     },
     city: {
       type: String,

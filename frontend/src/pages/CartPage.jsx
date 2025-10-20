@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { CartContext } from "../context/cart.context";
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
@@ -6,12 +6,25 @@ import { Trash2 } from "lucide-react";
 export default function CartPage() {
   const {
     cart,
+    productsData,
     removeFromCart,
     updateQuantity,
     totalPrice,
     totalItems,
     clearCart,
+    setDeliveryAddress,
+    setPaymentMethod,
   } = useContext(CartContext);
+
+  const [loading, setLoading] = useState(false);
+
+  const mergedProducts = cart.products.map((cartItem) => {
+    const fullProduct = productsData.find((p) => p._id === cartItem.product);
+    return {
+      ...fullProduct,
+      quantity: cartItem.quantity,
+    };
+  });
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-8">
@@ -29,27 +42,29 @@ export default function CartPage() {
             Go Shopping
           </Link>
         </div>
+      ) : loading ? (
+        <p className="text-center text-gray-500">Loading cart...</p>
       ) : (
-        <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 bg-white shadow-lg rounded-xl p-4">
-            {cart.products.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between border-b py-4"
-              >
-                <div>
-                  <p className="font-semibold text-gray-800">
-                    Product ID: {item.product}
-                  </p>
-                  <p className="text-gray-500">Price: ₹{item.priceAtPurchase}</p>
-                  <p className="text-gray-500">Shop: {item.shop}</p>
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
+          {/* Cart Items */}
+          <div className="lg:w-2/3 bg-white shadow-lg rounded-xl p-4">
+            {mergedProducts.map((item, index) => (
+              <div key={index} className="flex items-center justify-between border-b py-4">
+                <img
+                  src={item?.images?.[0] || "https://via.placeholder.com/80"}
+                  alt={item?.name}
+                  className="w-16 h-16 object-cover rounded-lg border mr-4"
+                />
+
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-800">{item?.name}</p>
+                  <p className="text-gray-500">₹{item?.price}</p>
+                  <p className="text-gray-500 text-sm">Shop: {item?.shop || "—"}</p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <button
-                    onClick={() =>
-                      updateQuantity(item.product, item.quantity - 1)
-                    }
+                    onClick={() => updateQuantity(item._id, item.quantity - 1)}
                     disabled={item.quantity <= 1}
                     className="px-2 py-1 border rounded disabled:opacity-50"
                   >
@@ -57,9 +72,7 @@ export default function CartPage() {
                   </button>
                   <span className="px-2">{item.quantity}</span>
                   <button
-                    onClick={() =>
-                      updateQuantity(item.product, item.quantity + 1)
-                    }
+                    onClick={() => updateQuantity(item._id, item.quantity + 1)}
                     className="px-2 py-1 border rounded"
                   >
                     +
@@ -67,35 +80,63 @@ export default function CartPage() {
                 </div>
 
                 <button
-                  onClick={() => removeFromCart(item.product)}
-                  className="text-red-600 hover:text-red-800"
+                  onClick={() => removeFromCart(item._id)}
+                  className="text-red-600 hover:text-red-800 ml-2"
                 >
-                  <Trash2 size={20} />
+                  <Trash2 size={18} />
                 </button>
               </div>
             ))}
 
-            <button
-              onClick={clearCart}
-              className="mt-4 text-red-500 underline hover:text-red-700"
-            >
+            <button onClick={clearCart} className="mt-4 text-red-500 underline hover:text-red-700">
               Clear Cart
             </button>
           </div>
 
-          <div className="bg-white shadow-lg rounded-xl p-6">
+          {/* Order Summary */}
+          <div className="lg:w-1/3 bg-white shadow-lg rounded-xl p-6">
             <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+
             <p className="text-gray-700 mb-2">
               Total Items: <span className="font-bold">{totalItems}</span>
             </p>
             <p className="text-gray-700 mb-4">
               Total Price:{" "}
-              <span className="font-bold text-emerald-700">
-                ₹{totalPrice.toFixed(2)}
-              </span>
+              <span className="font-bold text-emerald-700">₹{totalPrice.toFixed(2)}</span>
             </p>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-1">Delivery Address</label>
+              <textarea
+                rows="1"
+                value={cart.deliveryAddress}
+                onChange={(e) => setDeliveryAddress(e.target.value)}
+                className="w-full border rounded p-2 focus:outline-none focus:ring focus:border-emerald-400"
+                placeholder="Enter your delivery address"
+                required
+              ></textarea>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-1">Payment Method</label>
+              <select
+                value={cart.paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="w-full border rounded p-2 focus:outline-none focus:ring focus:border-emerald-400"
+              >
+                <option value="COD">Cash on Delivery (COD)</option>
+                <option value="Online">Online Payment</option>
+              </select>
+            </div>
+
             <Link
-              to="/checkout"
+              to={cart.deliveryAddress ? "/checkout" : "#"}
+              onClick={(e) => {
+                if (!cart.deliveryAddress) {
+                  e.preventDefault();
+                  alert("Please enter delivery address before proceeding!");
+                }
+              }}
               className="block text-center bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-500 transition"
             >
               Proceed to Checkout

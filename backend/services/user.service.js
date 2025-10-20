@@ -6,7 +6,8 @@ export const createUser = async({email, password})=>{
     }
 
     // checking for duplicate email
-    const existingUser = userModel.findOne({email});
+    const existingUser = await userModel.findOne({email});
+    console.log(existingUser);
     if(existingUser){
         const error = new Error("Email already registered");
         error.statusCode = 409; 

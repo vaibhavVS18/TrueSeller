@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { body, param } from "express-validator";
+import { body } from "express-validator";
 import * as wishlistController from "../controllers/wishlist.controller.js";
 import * as authMiddleware from "../middleware/auth.middleware.js";
 

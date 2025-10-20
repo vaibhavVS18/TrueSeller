@@ -1,8 +1,12 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState ,useContext, useEffect} from "react";
+import { UserContext } from "./user.context";
+
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const {user} = useContext(UserContext);
+
   const [cart, setCart] = useState({
     customer: null,
     products: [],
@@ -14,6 +18,14 @@ export const CartProvider = ({ children }) => {
     status: "pending",
     notes: "",
   });
+
+  const [productsData, setProductsData] = useState([]);   // full product details
+
+  useEffect(()=>{
+    if(user && user._id){
+      setCart((prevCart)=>({...prevCart, customer: user._id}))
+    }
+  }, [user])
 
   const addToCart = (product, shopId, quantity = 1) => {
     setCart((prevCart) => {
@@ -31,6 +43,19 @@ export const CartProvider = ({ children }) => {
           ),
         };
       }
+
+      // If product is new, also add full product info to productsData
+      setProductsData((prevData) => [
+        ...prevData,
+        {
+          _id: product._id,
+          name: product.name,
+          images: product.images || [],
+          price: product.price,
+          category: product.category,
+          shop: product.shop?.shopname || "",
+        },
+      ]);
 
       return {
         ...prevCart,
@@ -52,6 +77,11 @@ export const CartProvider = ({ children }) => {
       ...prevCart,
       products: prevCart.products.filter((item) => item.product !== productId),
     }));
+
+    // Remove from productsData as well
+    setProductsData((prevData) =>
+      prevData.filter((item) => item._id !== productId)
+    );
   };
 
   const updateQuantity = (productId, quantity) => {
@@ -99,6 +129,7 @@ export const CartProvider = ({ children }) => {
       status: "pending",
       notes: "",
     });
+    setProductsData([]);
   };
 
   // Calculate total price
@@ -114,6 +145,7 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         cart,
+        productsData,
         addToCart,
         removeFromCart,
         updateQuantity,
