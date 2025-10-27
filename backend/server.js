@@ -15,7 +15,7 @@ dotenv.config();
 connect();
 const app = express();
 
-// ✅ Simplified, Express 5–safe CORS setup
+// Simplified, Express 5–safe CORS setup
 app.use(
   cors({
     origin: ["http://localhost:5173", "https://trueseller.vercel.app"],

@@ -7,7 +7,7 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const {user} = useContext(UserContext);
 
-  const [cart, setCart] = useState({
+  const [cart, setCart] = useState({    // this cart will be used as a new order (see order model)
     customer: null,
     products: [],
     totalPrice: 0,
@@ -29,6 +29,8 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product, shopId, quantity = 1) => {
     setCart((prevCart) => {
+      prevCart.totalPrice += product.price;
+
       const existingProduct = prevCart.products.find(
         (item) => item.product === product._id
       );

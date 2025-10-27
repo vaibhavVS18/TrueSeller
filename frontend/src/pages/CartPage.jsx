@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { CartContext } from "../context/cart.context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Trash2 } from "lucide-react";
+import axios from "../config/axios";
 
 export default function CartPage() {
   const {
@@ -16,7 +17,9 @@ export default function CartPage() {
     setPaymentMethod,
   } = useContext(CartContext);
 
-  const [loading, setLoading] = useState(false);
+  const [orderLoading, setOrderLoading] = useState(false);
+  const [validationError, setValidationError] = useState("");
+  const navigate = useNavigate();
 
   const mergedProducts = cart.products.map((cartItem) => {
     const fullProduct = productsData.find((p) => p._id === cartItem.product);
@@ -25,6 +28,43 @@ export default function CartPage() {
       quantity: cartItem.quantity,
     };
   });
+
+const handleCheckout = async (e) => {
+  e.preventDefault();
+
+  if (!cart.deliveryAddress.trim()) {
+    setValidationError("Please enter your delivery address");
+    return;
+  }
+
+  try {
+    setOrderLoading(true);
+    setValidationError("");
+
+    const res = await axios.post("/api/orders", cart);
+
+    if (res.data?.order) {
+      console.log("Order placed:", res.data.order);
+
+      clearCart();
+
+      alert("Order placed successfully!");
+      // navigate("/ordersPage");
+    } 
+    else {
+      alert("Something went wrong. Please try again.");
+    }
+  } 
+
+  catch (err) {
+    console.error("Checkout error:", err);
+    alert("Failed to place order. Please try again.");
+  } 
+  finally {
+    setOrderLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-8">
@@ -42,8 +82,6 @@ export default function CartPage() {
             Go Shopping
           </Link>
         </div>
-      ) : loading ? (
-        <p className="text-center text-gray-500">Loading cart...</p>
       ) : (
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
           {/* Cart Items */}
@@ -88,13 +126,29 @@ export default function CartPage() {
               </div>
             ))}
 
-            <button onClick={clearCart} className="mt-4 text-red-500 underline hover:text-red-700">
-              Clear Cart
-            </button>
+            <div className="flex justify-end">
+              <button
+                onClick={clearCart}
+                className="border rounded p-1 mt-4 text-red-700 hover:text-red-500"
+              >
+                Clear Cart
+              </button>
+            </div>
+            
+            <div className="text-center mt-7">
+              <p className="text-gray-600 text-lg">Add more items in your cart.</p>
+              <Link
+                to="/productsPage"
+                className="inline-block mt-4 px-6 py-2 bg-emerald-600 text-white rounded-lg shadow hover:bg-emerald-500 transition"
+              >
+                Go Shopping
+              </Link>
+            </div>
+
           </div>
 
           {/* Order Summary */}
-          <div className="lg:w-1/3 bg-white shadow-lg rounded-xl p-6">
+          <div className="lg:w-1/3 max-h-100 bg-white shadow-lg rounded-xl p-6">
             <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
 
             <p className="text-gray-700 mb-2">
@@ -110,11 +164,23 @@ export default function CartPage() {
               <textarea
                 rows="1"
                 value={cart.deliveryAddress}
-                onChange={(e) => setDeliveryAddress(e.target.value)}
-                className="w-full border rounded p-2 focus:outline-none focus:ring focus:border-emerald-400"
+                onChange={(e) => {
+                  setDeliveryAddress(e.target.value)
+                  if(validationError) setValidationError("");
+                }}
+
+                className={`w-full border rounded p-2 focus:outline-none focus:ring
+                            ${validationError ? "border-red-400 focus:border-red-500"
+                                              : "focus:border-emerald-400"
+                            }
+                          `}
                 placeholder="Enter your delivery address"
                 required
               ></textarea>
+
+              {validationError && (
+                <p className="text-red-500 text-sm mt-1">{validationError}</p>
+              )}
             </div>
 
             <div className="mb-4">
@@ -129,18 +195,18 @@ export default function CartPage() {
               </select>
             </div>
 
-            <Link
-              to={cart.deliveryAddress ? "/checkout" : "#"}
-              onClick={(e) => {
-                if (!cart.deliveryAddress) {
-                  e.preventDefault();
-                  alert("Please enter delivery address before proceeding!");
-                }
-              }}
-              className="block text-center bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-500 transition"
+            <button
+              onClick={handleCheckout}
+              disabled={orderLoading}
+              className={`w-full text-center py-2 rounded-lg transition ${
+                orderLoading
+                  ? "bg-gray-400 cursor-not-allowed text-white"
+                  : "bg-emerald-600 text-white hover:bg-emerald-500"
+              }`}
             >
-              Proceed to Checkout
-            </Link>
+              {orderLoading ? "Processing..." : "Proceed to Checkout"}
+            </button>
+
           </div>
         </div>
       )}

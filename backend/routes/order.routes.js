@@ -9,8 +9,8 @@ const router = Router();
 router.post(
   "/",
   authMiddleware.authUser,
-  body("shop").isMongoId().withMessage("Invalid shop ID"),
   body("products").isArray({ min: 1 }).withMessage("Products array is required"),
+  body("products.*.shop").isMongoId().withMessage("Invalid shop ID"),
   body("products.*.product").isMongoId().withMessage("Invalid product ID"),
   body("products.*.quantity").isInt({ min: 1 }).withMessage("Quantity must be at least 1"),
   body("deliveryAddress").notEmpty().withMessage("Delivery address is required"),

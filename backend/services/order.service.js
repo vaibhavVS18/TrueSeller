@@ -5,37 +5,18 @@ import Product from "../models/product.model.js";
 // Create a new order
 export const createOrder = async (orderData) => {
   // Validate shop
-  const shop = await Shop.findById(orderData.shop);
-  if (!shop) throw new Error("Shop not found");
+  for (const item of orderData.products) {
+    const shop = await Shop.findById(item.shop);
+    if (!shop) throw new Error(`Product ${item.shop} not found`);
+  }
 
-  // Validate products & calculate total
-  let totalPrice = 0;
-  const productsWithPrice = [];
-
+  // Validate products
   for (const item of orderData.products) {
     const product = await Product.findById(item.product);
     if (!product) throw new Error(`Product ${item.product} not found`);
-
-    const priceAtPurchase = product.price;
-    totalPrice += priceAtPurchase * item.quantity;
-
-    productsWithPrice.push({
-      product: product._id,
-      quantity: item.quantity,
-      priceAtPurchase
-    });
   }
 
-  const order = await Order.create({
-    customer: orderData.customer,
-    shop: orderData.shop,
-    products: productsWithPrice,
-    totalPrice,
-    deliveryAddress: orderData.deliveryAddress,
-    deliveryCharge: orderData.deliveryCharge || 0,
-    paymentMethod: orderData.paymentMethod || "COD",
-    notes: orderData.notes || ""
-  });
+  const order = await Order.create(orderData);
 
   return order;
 };
