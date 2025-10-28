@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/user.context";
 import axios from "../../config/axios";
-// import { FcGoogle } from "react-icons";
+import { FcGoogle } from "react-icons/fc";
 
 const RegisterModal = ({ isOpen, onClose, onLoginClick }) => {
   const [email, setEmail] = useState("");
@@ -150,7 +150,7 @@ const RegisterModal = ({ isOpen, onClose, onLoginClick }) => {
             onClick={handleGoogleLogin}
             className="py-2.5 px-5 flex items-center justify-center gap-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium shadow-sm border border-gray-300 transition-all text-sm sm:text-base"
           >
-            {/* <FcGoogle className="text-xl" /> */}
+            <FcGoogle className="text-xl" />
             Sign up with Google
           </button>
         </div>
