@@ -1,2 +1,10 @@
 .env
 node_modules/
+
+# Generated scripts and data files (remove leading dots — they were incorrect)
+generateShops.js
+generateProducts.js
+
+# Common project data files
+products.json
+shops.json
