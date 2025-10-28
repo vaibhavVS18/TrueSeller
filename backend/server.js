@@ -8,6 +8,9 @@ import shopRoutes from "./routes/shop.routes.js";
 import productRoutes from "./routes/product.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import wishlistRoutes from "./routes/wishlist.routes.js";
+import authRoutes from "./routes/auth.routes.js";
+
+import passport from "./config/passport.js"
 
 dotenv.config();
 
@@ -23,9 +26,10 @@ app.use(
   })
 );
 
-// ✅ Proper preflight handling for Express 5
+//       Proper preflight handling for Express 5
 // app.options(/.*/, cors());
 
+app.use(passport.initialize());   // check
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,6 +44,7 @@ app.use("/api/shops", shopRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/wishlists", wishlistRoutes);
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -42,7 +42,7 @@ const RegisterModal = ({ isOpen, onClose, onLoginClick }) => {
   const handleGoogleLogin = () => {
     const backendUrl = import.meta.env.VITE_API_URL;
     const redirectPage = window.location.pathname;
-    window.location.href = `${backendUrl}/auth/google?state=${encodeURIComponent(
+    window.location.href = `${backendUrl}/api/auth/google?state=${encodeURIComponent(
       redirectPage
     )}`;
   };

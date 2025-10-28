@@ -26,7 +26,8 @@ export const getMyOrdersController = async (req, res) => {
   try {
     const orders = await Order.find({ customer: req.user._id })
       .populate("products.product", "name images category")
-      .populate("products.shop", "shopname"); 
+      .populate("products.shop", "shopname")
+      .sort({updatedAt: -1});
 
     res.status(200).json({ orders });
   } 

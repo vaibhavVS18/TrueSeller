@@ -30,41 +30,41 @@ export default function CartPage() {
     };
   });
 
-const handleCheckout = async (e) => {
-  e.preventDefault();
+  const handleCheckout = async (e) => {
+    e.preventDefault();
 
-  if (!cart.deliveryAddress.trim()) {
-    setValidationError("Please enter your delivery address");
-    return;
-  }
-
-  try {
-    setOrderLoading(true);
-    setValidationError("");
-
-    const res = await axios.post("/api/orders", cart);
-
-    if (res.data?.order) {
-      console.log("Order placed:", res.data.order);
-
-      clearCart();
-
-      alert("Order placed successfully!");
-      // navigate("/ordersPage");
-    } 
-    else {
-      alert("Something went wrong. Please try again.");
+    if (!cart.deliveryAddress.trim()) {
+      setValidationError("Please enter your delivery address");
+      return;
     }
-  } 
 
-  catch (err) {
-    console.error("Checkout error:", err);
-    alert("Failed to place order. Please try again.");
-  } 
-  finally {
-    setOrderLoading(false);
-  }
-};
+    try {
+      setOrderLoading(true);
+      setValidationError("");
+
+      const res = await axios.post("/api/orders", cart);
+
+      if (res.data?.order) {
+        console.log("Order placed:", res.data.order);
+
+        clearCart();
+
+        alert("Order placed successfully!");
+        navigate("/ordersPage");
+      } 
+      else {
+        alert("Something went wrong. Please try again.");
+      }
+    } 
+
+    catch (err) {
+      console.error("Checkout error:", err);
+      alert("Failed to place order. Please try again.");
+    } 
+    finally {
+      setOrderLoading(false);
+    }
+  };
 
 
   return (
