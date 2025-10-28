@@ -2,8 +2,45 @@ import { Router } from "express";
 import { body, param, query } from "express-validator";
 import * as productController from "../controllers/product.controller.js";
 import * as authMiddleware from "../middleware/auth.middleware.js";
+import Product from "../models/product.model.js";
+import Shop from "../models/shop.model.js";
 
 const router = Router();
+
+router.post("/seed", async (req, res) => {
+  try {
+    const products = req.body;
+
+    if (!Array.isArray(products) || products.length === 0) {
+      return res.status(400).json({ message: "Invalid or empty product data." });
+    }
+
+    // Optional: clear old products
+    // await Product.deleteMany({});
+
+    // Convert comma-separated tags to arrays
+    const formattedProducts = products.map((p) => ({
+      ...p,
+      tags: typeof p.tags === "string"
+        ? p.tags.split(",").map((t) => t.trim()).filter(Boolean)
+        : Array.isArray(p.tags)
+        ? p.tags
+        : [],
+    }));
+
+    // Insert new products
+    const inserted = await Product.insertMany(formattedProducts);
+
+    res.status(201).json({
+      message: `${inserted.length} products inserted successfully.`,
+      data: inserted,
+    });
+  } catch (err) {
+    console.error("❌ Error inserting products:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
 
 // create a new product
 router.post(
@@ -16,6 +53,23 @@ router.post(
   productController.createProductController
 );
 
+// Route: Get all unique product categories and shop names
+router.get("/unique-data", async (req, res) => {
+  try {
+    const categories = await Product.distinct("category");
+
+    const shopIds = await Product.distinct("shop");
+    const shops = await Shop.find({ _id: { $in: shopIds } }).select("shopname");
+
+    res.status(200).json({
+      categories,
+      shops: shops.map((s) => s.shopname),
+    });
+  } catch (err) {
+    console.error("Error fetching unique data:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
 
 // get all products (optionally filter by category, shop, search)
 router.get("/", productController.getAllProductsController);

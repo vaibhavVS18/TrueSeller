@@ -5,10 +5,16 @@ import Loader from "../components/common/Loader.jsx";
 import { UserContext } from "../context/user.context.jsx";
 import { uploadImageToCloudinary } from "../config/cloudinary.js";
 import ImageCarousel from "../components/product/ImageCarousel.jsx";
+import { ShoppingCart , Package, Heart, Loader2} from "lucide-react";
+import { CartContext } from "../context/cart.context.jsx";
+import { ModalContext } from "../context/modal.context.jsx";
 
 export default function Product() {
   const { productId } = useParams();
   const { user, loading: userLoading } = useContext(UserContext);
+  const {addToCart} = useContext(CartContext);
+  const {setIsLoginOpen} = useContext(ModalContext);
+
   const [isOwner, setIsOwner] = useState(false);
 
   const [product, setProduct] = useState(null);
@@ -27,6 +33,8 @@ export default function Product() {
   });
 
   const [uploading, setUploading] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+  const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,22 +43,9 @@ export default function Product() {
 
   // Fetch product
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get(`/api/products/${productId}`);
-        setProduct(res.data.product);
-
-          // Check if current user is owner
-        if(res.data.product.shop.owner === user._id) setIsOwner(true);
-      } catch (err) {
-        console.error("Error fetching product:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     if( !userLoading) fetchProduct();
+    if(user) fetchWishlist();
+
   }, [productId, user, userLoading]);
 
   // Set form values when product loads
@@ -67,6 +62,21 @@ export default function Product() {
       });
     }
   }, [product]);
+
+  const fetchProduct = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`/api/products/${productId}`);
+      setProduct(res.data.product);
+
+        // Check if current user is owner
+      if(res.data.product.shop.owner === user._id) setIsOwner(true);
+    } catch (err) {
+      console.error("Error fetching product:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Handle form input changes
   const handleProductFormChange = (e) => {
@@ -113,6 +123,42 @@ export default function Product() {
     }
   };
 
+  const fetchWishlist = async()=>{
+    try{
+      const res = await axios.get("/api/wishlists");
+      // setWishlist(res.data)
+      console.log(res.data.products);
+      setWishlist(res.data?.products || []);
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+
+  const toggleWishlist = async(productId)=>{
+    try{
+      setWishlistLoading(true);
+      const res = await axios.post("/api/wishlists/toggle", {productId});
+      // console.log(res.data);
+
+      setWishlist((prev)=>{
+        if(prev.includes(productId)){
+          return prev.filter((id)=> id !== productId);
+        }
+        else{
+          return [...prev, productId];
+        }
+      });
+    }
+    catch(err){
+      console.log("Error toggling wishlist: ", err.response?.data || err);
+    }
+    finally{
+      setWishlistLoading(false);
+    }
+  }
+
+  
   if (loading || userLoading) return <Loader />;
   if (!product) return <p className="text-center mt-10">Product not found.</p>;
 
@@ -129,12 +175,34 @@ export default function Product() {
           {isOwner && (
             <button
               onClick={() => setShowModal(true)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl"
+              className="sm:absolute top-3 left-3 text-gray-500 border-2 rounded-full hover:bg-gray-500 hover:text-white text-md p-1 px-2"
               title="Edit Product Info"
             >
-              ✏️
+              Update ✏️
             </button>
           )}
+
+          <button
+            onClick={() => {
+              user? toggleWishlist(product._id) : setIsLoginOpen(true);
+            }}
+            disabled={wishlistLoading}
+            className={`absolute top-3 right-3 z-20 cursor-pointer 
+                        flex items-center justify-center 
+                        rounded-full p-1 transition-colors duration-200 border border-emerald-400
+                        ${wishlist.includes(product._id) ? "bg-gray-100" : "bg-gray-100"} 
+                        hover:bg-emerald-100 disabled:opacity-70`}  // also can keep 'disabled:cursor-not-allowed'
+          >
+            {wishlistLoading ? (
+              <Loader2 size={18} className="animate-spin text-emerald-500" />
+            ) : (
+            <Heart
+              size={22}
+              color={wishlist.includes(product._id) ? "#33c292ff" : "#10B981"}   // emerald
+              fill={wishlist.includes(product._id) ? "#33c292ff" : "none"}        // cyan
+            />
+            )}
+          </button>
 
           {/* Product Images Placeholder (or main image) */}
           {product.images?.[0] && (
@@ -149,70 +217,82 @@ export default function Product() {
           <h1 className="hidden md:block text-3xl font-bold text-emerald-800 mb-2">{product.name}</h1>
 
           {/* Product Basic Info */}
-          <div className="grid grid-cols-1sm:grid-cols-2 gap-x-10 gap-y-2 text-gray-700 text-lg w-full max-w-2xl mt-2 mb-4">
+          <div className="flex flex-col sm:flex-row justify-between sm:gap-8 p-4 text-gray-700 text-lg w-full mt-2 mb-4 border">
             
-            <div className="flex gap-3">
-              <span className="font-semibold w-28">Price:</span>
-              <span className="text-emerald-600">₹{product.price}</span>
-            </div>
-
-            <div className="flex gap-3">
-              <span className="font-semibold w-28">Stock:</span>
-              <span className="text-emerald-600">{product.stock}</span>
-            </div>
-
-            <div className="flex gap-3">
-              <span className="font-semibold w-28">Category:</span>
-              <span className="text-emerald-600">{product.category || "General"}</span>
-            </div>
-
-            <div className="flex gap-3">
-              <span className="font-semibold w-28">Rating:</span>
-              <span className="text-gold-200">⭐ {product.rating?.toFixed(1) || "0.0"}</span>
-            </div>
-
-            {product.shop && (
-              <div className="flex gap-3 col-span-1 sm:col-span-2">
-                <span className="font-semibold w-28">Shop:</span>
-                <Link
-                  to={`/shop/${product.shop._id}`}
-                  className="text-emerald-600 underline"
-                >
-                  {product.shop.shopname}
-                </Link>
+            <div className="flex justify-between flex-1">
+              <div className="flex flex-col items-start">
+                <span className="font-semibold">Price:</span>
+                <span className="font-semibold">Category:</span>
+                <span className="font-semibold">Rating:</span>
               </div>
-            )}
+              <div className="flex flex-col sm:items-start">
+              <span className="text-emerald-600">₹{product.price}</span>
+              <span className="text-emerald-600">{product.category || "General"}</span>
+              <span className="text-gold-200">⭐ {product.rating?.toFixed(1) || "0.0"}</span>
+              </div>
+            </div>
+
+            <div className="flex justify-between flex-1">
+              <div className="flex flex-col items-start">
+                {product.shop && (
+                  <span className="font-semibold">Shop:</span>
+                )}                
+                  <span className="font-semibold">Stock:</span>
+              </div>
+              <div className="flex flex-col sm:items-start">
+                {product.shop && (
+                  <Link
+                    to={`/shop/${product.shop._id}`}
+                    className="text-emerald-600 underline"
+                  >
+                    {product.shop.shopname}
+                  </Link>              
+                )}
+                  <span className="text-emerald-600">{product.stock}</span>
+              </div>
+            </div>
+
           </div>
 
-            <button
-              className="mt-2 bg-emerald-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-600 transition"
-              onClick={() =>{
-                let scrollTop;
-                if(window.innerWidth >= 640){
-                  scrollTop = 648;   // sm
-                }
-                else{
-                  scrollTop = 740;
-                }
-
-                window.scrollTo(
-                {
-                  top:scrollTop,
-                  behavior: 'smooth' 
-                }
-                )
-              }}
-            >
-              Place Order
-            </button>
 
           {/* Description */}
           {product.description && (
-            <div className="flex gap-3 mt-2">
-              <span className="font-semibold w-28">About Product:</span>
+            <div className="flex flex-col mt-2">
+              <span className="font-semibold">About Product:</span>
               <p className="text-gray-600 max-w-lg">{product.description}</p>
             </div>
           )}
+
+          <div className="flex gap-1 mt-4">
+            <button
+              onClick={() => {
+                user ? addToCart(product, product.shop?._id): setIsLoginOpen(true);
+              }}
+              className="flex items-center justify-center gap-1 mt-2 bg-cyan-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-cyan-600 transition"
+            >
+              <span>Add to Cart</span>
+              <ShoppingCart size={18} />
+            </button>
+
+            <Link
+            to={ user? "/cartPage" : "#"}
+              className="flex items-center justify-center gap-1 mt-2 bg-emerald-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-emerald-600 transition"
+              onClick={(e) =>{
+                if(user){
+                  addToCart(product, product.shop?._id);
+                }
+                else{
+                  e.preventDefault();    // stop navigation 
+                  setIsLoginOpen(true);
+                }
+
+              }}
+            >
+              <span>Place Order</span>
+              <Package size={18}/>
+              
+            </Link>
+          </div>
 
         </div>
 
@@ -316,7 +396,7 @@ export default function Product() {
                     <img
                       src={img}
                       alt="preview"
-                      className="w-full h-24 object-cover rounded"
+                      className="w-full h-24 object-cover border rounded"
                     />
                     <button
                       type="button"

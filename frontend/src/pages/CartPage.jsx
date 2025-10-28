@@ -5,6 +5,7 @@ import { Trash2 } from "lucide-react";
 import axios from "../config/axios";
 
 export default function CartPage() {
+  
   const {
     cart,
     productsData,
@@ -85,7 +86,7 @@ const handleCheckout = async (e) => {
       ) : (
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
           {/* Cart Items */}
-          <div className="lg:w-2/3 bg-white shadow-lg rounded-xl p-4">
+          <div className="lg:w-2/3 bg-white shadow-lg rounded-xl p-5">
             {mergedProducts.map((item, index) => (
               <div key={index} className="flex items-center justify-between border-b py-4">
                 <img
@@ -100,18 +101,20 @@ const handleCheckout = async (e) => {
                   <p className="text-gray-500 text-sm">Shop: {item?.shop || "—"}</p>
                 </div>
 
-                <div className="flex items-center gap-1">
+                <div className="flex items-center border rounded-lg overflow-hidden">
                   <button
                     onClick={() => updateQuantity(item._id, item.quantity - 1)}
                     disabled={item.quantity <= 1}
-                    className="px-2 py-1 border rounded disabled:opacity-50"
+                    className="px-2 py-1 text-lg font-semibold border-r text-white bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 disabled:hover:bg-cyan-600"
                   >
-                    -
+                    −
                   </button>
-                  <span className="px-2">{item.quantity}</span>
+                  <span className="px-3 py-1 text-gray-800 text-sm font-medium bg-white">
+                    {item.quantity}
+                  </span>
                   <button
                     onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                    className="px-2 py-1 border rounded"
+                    className="px-2 py-1 text-lg font-semibold border-l text-white bg-cyan-600 hover:bg-cyan-500"
                   >
                     +
                   </button>

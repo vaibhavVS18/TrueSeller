@@ -2,8 +2,52 @@ import { Router } from "express";
 import { body, param } from "express-validator";
 import * as shopController from "../controllers/shop.controller.js";
 import * as authMiddleware from "../middleware/auth.middleware.js";
+import Shop from "../models/shop.model.js";
 
 const router = Router();
+
+// Seed multiple shops
+router.post("/seed", async (req, res) => {
+  try {
+    const shops = req.body;
+
+    // Validate input
+    if (!Array.isArray(shops) || shops.length === 0) {
+      return res.status(400).json({ message: "Invalid or empty shop data." });
+    }
+
+    // Optional: clear old shops before seeding
+    // await Shop.deleteMany({});
+
+    // Format & validate each shop
+    const formattedShops = shops.map((shop) => ({
+      ...shop,
+      shopname: shop.shopname?.trim(),
+      city: shop.city?.trim(),
+      address: shop.address?.trim(),
+      category: shop.category?.trim() || "General",
+      contactEmail: shop.contactEmail?.toLowerCase(),
+      contactPhone: String(shop.contactPhone || ""),
+      rating:
+        typeof shop.rating === "number"
+          ? Math.min(Math.max(shop.rating, 0), 5)
+          : 4,
+      verified: !!shop.verified,
+      isActive: shop.isActive !== false, // default true
+    }));
+
+    // Insert shops
+    const inserted = await Shop.insertMany(formattedShops);
+
+    res.status(201).json({
+      message: `${inserted.length} shops inserted successfully.`,
+      data: inserted,
+    });
+  } catch (err) {
+    console.error("❌ Error inserting shops:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
 
 //  Create a new shop
 router.post(

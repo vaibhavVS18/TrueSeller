@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { X, Store, ShoppingBag, ShoppingCart, LogOut, LogIn } from "lucide-react";
+import { X, Store, ShoppingBag, ShoppingCart, LogOut, LogIn, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/user.context";
 
@@ -53,6 +53,15 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout, onLoginClick }
 
         {/* Navigation Links */}
         <nav className="flex-1">
+          <Link
+            to="/ordersPage"
+            className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-cyan-600 p-3 rounded-lg transition font-medium"
+            onClick={() => setIsSidebarOpen(false)}
+          >
+            <Package size={20} />
+            My Orders
+          </Link>
+
           <Link
             to="/start-shop"
             className="flex items-center gap-3 text-gray-700 hover:bg-emerald-50 hover:text-cyan-600 p-3 rounded-lg transition font-medium"

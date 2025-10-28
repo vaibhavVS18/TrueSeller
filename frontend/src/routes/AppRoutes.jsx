@@ -10,6 +10,7 @@ import ShopsPage from '../pages/ShopsPage.jsx';
 import ProfilePage from '../pages/ProfilePage.jsx';
 import WishlistPage from '../pages/WishListPage.jsx';
 import CartPage from '../pages/CartPage.jsx';
+import OrdersPage from '../pages/OrdersPage.jsx';
 
 const AppRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const AppRoutes = () => {
                 <Route path="/profilePage" element={<ProfilePage/>} />
                 <Route path="/wishlistPage" element={<WishlistPage/>} />
                 <Route path="/cartPage" element={<CartPage/>} />
+                <Route path="/ordersPage" element={<OrdersPage/>} />
             </Route>
         </Routes>
     </BrowserRouter>

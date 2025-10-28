@@ -4,6 +4,7 @@ import axios from "../../config/axios";
 import { UserContext } from "../../context/user.context";
 import Sidebar from "../common/Sidebar";
 import { CartContext } from "../../context/cart.context";
+import SearchBar from "./SearchBar";
 
 import {
   ShoppingCart,
@@ -17,6 +18,7 @@ import {
   Home,
   User,
 } from "lucide-react";
+
 
 const Navbar = ({ onLoginClick }) => {
   const { user, setUser } = useContext(UserContext);
@@ -85,16 +87,7 @@ const Navbar = ({ onLoginClick }) => {
           </Link>
 
           {/* Search Bar */}
-          <div className="flex items-center w-64">
-            <input
-              type="text"
-              placeholder="Search products or shops..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-full text-sm text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-            <button className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white px-4 py-2 rounded-full ml-1 hover:bg-blue-800 transition">
-              <Search size={18} />
-            </button>
-          </div>
+          <SearchBar/>
         </div>
 
         {/* Right Side */}

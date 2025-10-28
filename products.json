@@ -1,0 +1,307 @@
+[
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "iPhone 5s",
+    "description": "The iPhone 5s is a classic smartphone known for its compact design and advanced features during its release. While it's an older model, it still provides a reliable user experience.",
+    "price": 199.99,
+    "stock": 25,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Apple",
+      "smartphones"
+    ],
+    "rating": 2.83,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "iPhone 6",
+    "description": "The iPhone 6 is a stylish and capable smartphone with a larger display and improved performance. It introduced new features and design elements, making it a popular choice in its time.",
+    "price": 299.99,
+    "stock": 60,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Apple",
+      "smartphones"
+    ],
+    "rating": 3.41,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "iPhone 13 Pro",
+    "description": "The iPhone 13 Pro is a cutting-edge smartphone with a powerful camera system, high-performance chip, and stunning display. It offers advanced features for users who demand top-notch technology.",
+    "price": 1099.99,
+    "stock": 56,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Apple",
+      "smartphones"
+    ],
+    "rating": 4.12,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "iPhone X",
+    "description": "The iPhone X is a flagship smartphone featuring a bezel-less OLED display, facial recognition technology (Face ID), and impressive performance. It represents a milestone in iPhone design and innovation.",
+    "price": 899.99,
+    "stock": 37,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-x/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-x/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/iphone-x/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Apple",
+      "smartphones"
+    ],
+    "rating": 2.51,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Oppo A57",
+    "description": "The Oppo A57 is a mid-range smartphone known for its sleek design and capable features. It offers a balance of performance and affordability, making it a popular choice.",
+    "price": 249.99,
+    "stock": 19,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Oppo",
+      "smartphones"
+    ],
+    "rating": 3.94,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Oppo F19 Pro Plus",
+    "description": "The Oppo F19 Pro Plus is a feature-rich smartphone with a focus on camera capabilities. It boasts advanced photography features and a powerful performance for a premium user experience.",
+    "price": 399.99,
+    "stock": 78,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/oppo-f19-pro-plus/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/oppo-f19-pro-plus/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/oppo-f19-pro-plus/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Oppo",
+      "smartphones"
+    ],
+    "rating": 3.51,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Oppo K1",
+    "description": "The Oppo K1 series offers a range of smartphones with various features and specifications. Known for their stylish design and reliable performance, the Oppo K1 series caters to diverse user preferences.",
+    "price": 299.99,
+    "stock": 55,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/oppo-k1/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/oppo-k1/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/oppo-k1/3.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/oppo-k1/4.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Oppo",
+      "smartphones"
+    ],
+    "rating": 4.25,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Realme C35",
+    "description": "The Realme C35 is a budget-friendly smartphone with a focus on providing essential features for everyday use. It offers a reliable performance and user-friendly experience.",
+    "price": 149.99,
+    "stock": 48,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/realme-c35/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/realme-c35/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/realme-c35/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Realme",
+      "smartphones"
+    ],
+    "rating": 4.2,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Realme X",
+    "description": "The Realme X is a mid-range smartphone known for its sleek design and impressive display. It offers a good balance of performance and camera capabilities for users seeking a quality device.",
+    "price": 299.99,
+    "stock": 12,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/realme-x/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/realme-x/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/realme-x/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Realme",
+      "smartphones"
+    ],
+    "rating": 3.7,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Realme XT",
+    "description": "The Realme XT is a feature-rich smartphone with a focus on camera technology. It comes equipped with advanced camera sensors, delivering high-quality photos and videos for photography enthusiasts.",
+    "price": 349.99,
+    "stock": 80,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/realme-xt/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/realme-xt/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/realme-xt/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Realme",
+      "smartphones"
+    ],
+    "rating": 4.58,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Samsung Galaxy S7",
+    "description": "The Samsung Galaxy S7 is a flagship smartphone known for its sleek design and advanced features. It features a high-resolution display, powerful camera, and robust performance.",
+    "price": 299.99,
+    "stock": 67,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s7/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s7/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s7/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Samsung",
+      "smartphones"
+    ],
+    "rating": 3.3,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Samsung Galaxy S8",
+    "description": "The Samsung Galaxy S8 is a premium smartphone with an Infinity Display, offering a stunning visual experience. It boasts advanced camera capabilities and cutting-edge technology.",
+    "price": 499.99,
+    "stock": 0,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s8/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s8/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s8/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Samsung",
+      "smartphones"
+    ],
+    "rating": 4.4,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Samsung Galaxy S10",
+    "description": "The Samsung Galaxy S10 is a flagship device featuring a dynamic AMOLED display, versatile camera system, and powerful performance. It represents innovation and excellence in smartphone technology.",
+    "price": 699.99,
+    "stock": 19,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s10/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s10/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/samsung-galaxy-s10/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Samsung",
+      "smartphones"
+    ],
+    "rating": 3.06,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Vivo S1",
+    "description": "The Vivo S1 is a stylish and mid-range smartphone offering a blend of design and performance. It features a vibrant display, capable camera system, and reliable functionality.",
+    "price": 249.99,
+    "stock": 50,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/vivo-s1/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/vivo-s1/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/vivo-s1/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Vivo",
+      "smartphones"
+    ],
+    "rating": 3.5,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Vivo V9",
+    "description": "The Vivo V9 is a smartphone known for its sleek design and emphasis on capturing high-quality selfies. It features a notch display, dual-camera setup, and a modern design.",
+    "price": 299.99,
+    "stock": 82,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/vivo-v9/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/vivo-v9/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/vivo-v9/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Vivo",
+      "smartphones"
+    ],
+    "rating": 3.6,
+    "isActive": true
+  },
+  {
+    "shop": "6720f4b3c02dff3fa07d8c2b",
+    "name": "Vivo X21",
+    "description": "The Vivo X21 is a premium smartphone with a focus on cutting-edge technology. It features an in-display fingerprint sensor, a high-resolution display, and advanced camera capabilities.",
+    "price": 499.99,
+    "stock": 7,
+    "images": [
+      "https://cdn.dummyjson.com/product-images/smartphones/vivo-x21/1.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/vivo-x21/2.webp",
+      "https://cdn.dummyjson.com/product-images/smartphones/vivo-x21/3.webp"
+    ],
+    "category": "smartphones",
+    "tags": [
+      "Vivo",
+      "smartphones"
+    ],
+    "rating": 4.26,
+    "isActive": true
+  }
+]

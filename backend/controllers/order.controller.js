@@ -25,14 +25,16 @@ export const createOrderController = async (req, res) => {
 export const getMyOrdersController = async (req, res) => {
   try {
     const orders = await Order.find({ customer: req.user._id })
-      .populate("products.product", "name price")
-      .populate("shop", "shopname owner");
+      .populate("products.product", "name images category")
+      .populate("products.shop", "shopname"); 
 
     res.status(200).json({ orders });
-  } catch (err) {
+  } 
+  catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
+
 
 // Get orders for a shop (owner only)
 export const getOrdersByShopController = async (req, res) => {

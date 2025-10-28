@@ -1,6 +1,6 @@
 import React, { useState, useEffect , useContext} from "react";
 import axios from "../config/axios";
-import { Link } from "react-router-dom";
+import { Link ,useLocation} from "react-router-dom";
 import Loader from "../components/common/Loader";
 import {Heart, Loader2, ShoppingCart} from "lucide-react";
 import { UserContext } from "../context/user.context";
@@ -8,6 +8,8 @@ import { ModalContext } from "../context/modal.context";
 import { CartContext } from "../context/cart.context";
 
 export default function ProductsPage() {
+  const location = useLocation();
+
   const {user} = useContext(UserContext);
   const {setIsLoginOpen} = useContext(ModalContext);
   const {addToCart} = useContext(CartContext);
@@ -50,19 +52,11 @@ export default function ProductsPage() {
 
   const fetchFilters = async () => {
     try {
-      const res = await axios.get("/api/products");
-      const allProducts = res.data.products || [];
+      const res = await axios.get("/api/products/unique-data");
+      console.log(res.data);
 
-      const uniqueCategories = [...new Set(allProducts.map((p) => p.category).filter(Boolean))];
-      const uniqueShops = [];
-      allProducts.forEach((p) => {
-        if (p.shop?._id && !uniqueShops.some((s) => s.id === p.shop._id)) {
-          uniqueShops.push({ id: p.shop._id, shopname: p.shop.shopname });
-        }
-      });
-
-      setCategories(uniqueCategories);
-      setShops(uniqueShops);
+      setCategories(res.data.categories);
+      setShops(res.data.shops);
     } catch (err) {
       console.error(" Error fetching filters:", err.message);
     }
@@ -104,13 +98,23 @@ export default function ProductsPage() {
   }
 
   useEffect(() => {
-    fetchProducts();
+    const params = new URLSearchParams(location.search);
+    const searchQuery = params.get("search"); // extract value
+    if (searchQuery) {
+      setQuery(searchQuery);
+      fetchProducts({ query: searchQuery, category, shop });     // below useEffect will fetch this bcoz in change in query
+    } 
+    else {
+      fetchProducts();
+    }
+
     fetchFilters();
     fetchWishlist();
   }, []);
 
   useEffect(() => {
     setPage(1);
+    console.log("first");
     fetchProducts({ query, category, shop });
   }, [query, category, shop]);
 
@@ -153,9 +157,9 @@ export default function ProductsPage() {
           className="border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:ring-2 focus:ring-cyan-600"
         >
           <option value="">All Categories</option>
-          {categories.map((cat, idx) => (
-            <option key={idx} value={cat}>
-              {cat}
+          {categories.map((category, idx) => (
+            <option key={idx} value={category}>
+              {category}
             </option>
           ))}
         </select>
@@ -168,7 +172,7 @@ export default function ProductsPage() {
           <option value="">All Shops</option>
           {shops.map((s) => (
             <option key={s.id} value={s.id}>
-              {s.shopname}
+              {s}
             </option>
           ))}
         </select>
@@ -217,13 +221,13 @@ export default function ProductsPage() {
                   <img
                     src={product.images?.[0] || "/vite.svg"}
                     alt={product.name}
-                    className="w-full h-48 object-cover transition-transform duration-300 ease-in-out hover:scale-110"
+                    className="w-full h-48 object-contain transition-transform duration-300 ease-in-out hover:scale-110"
                   />
                 </div>
 
                 {/* Name + Price */}
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="font-semibold text-gray-900 text-lg hover:text-emerald-600 transition-colors">
+                  <h3 className="truncate font-semibold text-gray-900 text-lg hover:text-emerald-600 transition-colors">
                     {product.name}
                   </h3>
                   <p className="text-emerald-600 font-bold text-lg">
@@ -232,12 +236,12 @@ export default function ProductsPage() {
                 </div>
 
                 {/* Category & Shop */}
-                <div className="flex items-center justify-between mt-auto pt-2 text-sm text-gray-500 border-t">
-                  <div>
-                    <p className="hover:text-gray-800 transition-colors">
+                <div className="flex items-start justify-between mt-auto pt-2 text-sm text-gray-500 border-t">
+                  <div className="flex-1 min-w-0 pr-3">
+                    <p className="trunctae hover:text-gray-800 transition-colors">
                       Category: {product.category || "—"}
                     </p>
-                    <p className="hover:text-gray-800 font-bold text-gray-450 transition-colors">
+                    <p className="truncate hover:text-gray-800 font-bold text-gray-450 transition-colors">
                       Shop: {product.shop?.shopname || "—"}
                     </p>
                   </div>
@@ -251,7 +255,7 @@ export default function ProductsPage() {
                     className="flex items-center gap-2 border border-cyan-600 text-cyan-700 
                               hover:bg-cyan-600 hover:text-white hover:shadow-lg hover:border-white
                               font-medium px-4 py-2 rounded-full transition-all duration-300 
-                              hover:-translate-y-0.5 active:scale-95"
+                              hover:-translate-y-0.5 active:scale-95 shrink-0 "
                   >
                     <span>Add to Cart</span>
                     <ShoppingCart size={18} />

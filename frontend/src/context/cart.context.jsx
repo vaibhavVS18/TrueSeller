@@ -15,7 +15,7 @@ export const CartProvider = ({ children }) => {
     deliveryCharge: 0,
     paymentMethod: "COD",
     paymentStatus: "pending",
-    status: "pending",
+    status: "ordered",
     notes: "",
   });
 
@@ -128,7 +128,7 @@ export const CartProvider = ({ children }) => {
       deliveryCharge: 0,
       paymentMethod: "COD",
       paymentStatus: "pending",
-      status: "pending",
+      status: "ordered",
       notes: "",
     });
     setProductsData([]);

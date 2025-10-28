@@ -49,14 +49,13 @@ const orderSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: [
-        "pending",        // order placed
-        "processing",     // preparing order
+        "ordered",
         "shipped",        // handed to courier
         "out-for-delivery",
         "delivered",
         "cancelled",
       ],
-      default: "pending",
+      default: "ordered",
     },
     notes: {
       type: String, // customer notes like "Leave at doorstep"
