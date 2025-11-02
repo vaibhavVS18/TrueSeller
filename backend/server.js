@@ -20,7 +20,7 @@ const app = express();
 // Simplified, Express 5–safe CORS setup
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://trueseller.vercel.app"],
+    origin: ["http://localhost:5173", "https://trueseller.vercel.app", "https://vaibhav-portfolio-lemon.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
