@@ -9,6 +9,10 @@ const Home = () => {
     const { user , setUser} = useContext(UserContext);
 
     useEffect(()=>{
+      fetch("https://trueseller-q39b.onrender.com");
+    }, []);
+
+    useEffect(()=>{
       const params = new URLSearchParams(window.location.search);   // it gives query string part of the url
       const token = params.get("token");
       const redirectPage= params.get("redirectPage");
