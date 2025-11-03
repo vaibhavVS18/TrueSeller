@@ -8,8 +8,9 @@ const Home = () => {
     const navigate = useNavigate();
     const { user , setUser} = useContext(UserContext);
 
-    useEffect(()=>{
+    useEffect(() => {
       fetch("https://trueseller-q39b.onrender.com");
+      fetch("https://codchat-jvsc.onrender.com");
     }, []);
 
     useEffect(()=>{
