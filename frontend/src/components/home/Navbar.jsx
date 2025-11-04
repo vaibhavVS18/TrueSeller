@@ -109,31 +109,31 @@ const Navbar = ({ onLoginClick }) => {
             )
           }
 
-{
-  user && totalItems !== 0 && (
-    <Link
-      to="/cartPage"
-      className={`relative cursor-pointer hover:text-emerald-600
-                  ${location.pathname === "/cartpage" ? "text-emerald-600" : "text-gray-700"} 
-                  flex flex-col items-center justify-center`}
-    >
-      <div className="relative">
-        <ShoppingCart size={24} />
+          {
+            user && totalItems !== 0 && (
+              <Link
+                to="/cartPage"
+                className={`relative cursor-pointer hover:text-emerald-600
+                            ${location.pathname === "/cartpage" ? "text-emerald-600" : "text-gray-700"} 
+                            flex flex-col items-center justify-center`}
+              >
+                <div className="relative">
+                  <ShoppingCart size={24} />
 
-        <span
-          className="absolute -top-2 -right-2 bg-red-500 text-white text-[12px]
-                     font-semibold w-5 h-5 flex items-center justify-center rounded-full shadow-md"
-        >
-          {totalItems}
-        </span>
-      </div>
+                  <span
+                    className="absolute -top-2 -right-2 bg-red-500 text-white text-[12px]
+                              font-semibold w-5 h-5 flex items-center justify-center rounded-full shadow-md"
+                  >
+                    {totalItems}
+                  </span>
+                </div>
 
-      <span className="text-sm font-medium text-cyan-700 hover:text-cyan-600">
-        Cart
-      </span>
-    </Link>
-  )
-}
+                <span className="text-sm font-medium text-cyan-700 hover:text-cyan-600">
+                  Cart
+                </span>
+              </Link>
+            )
+          }
 
 
           {/* Login/Profile */}
@@ -153,7 +153,7 @@ const Navbar = ({ onLoginClick }) => {
           ) : (
             <button
               onClick={onLoginClick}
-              className="px-6 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white font-medium shadow-md transition-all"
+              className="px-6 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white font-medium shadow-md transition-all cursor-pointer"
             >
               Login
             </button>
@@ -162,7 +162,7 @@ const Navbar = ({ onLoginClick }) => {
           {/* Sidebar Toggle Icon */}
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 text-gray-700 hover:text-emerald-600"
+            className="p-2 text-gray-700 hover:text-emerald-600 cursor-pointer"
           >
             <Menu size={28} />
           </button>

@@ -15,7 +15,7 @@ const Layout = ()=>{
       const { isRegisterOpen, setIsRegisterOpen, isLoginOpen, setIsLoginOpen } =useContext(ModalContext);
 
     return(
-        <div className="min-h-screen flex flex-col bg-blue-100">
+        <div className="min-h-screen flex flex-col">
             {/* Navbar shared across all pages */}
             <Navbar
                 user={user}

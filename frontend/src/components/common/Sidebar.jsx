@@ -95,7 +95,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout, onLoginClick }
           {user ? (
             <button
               onClick={handleLogout}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-cyan-600 text-white rounded-lg hover:bg-cyan-500 active:scale-[0.98] transition"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-cyan-600 text-white rounded-lg hover:bg-cyan-500 active:scale-[0.98] transition cursor-pointer"
             >
               <LogOut size={20} />
               Logout
@@ -106,7 +106,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, handleLogout, onLoginClick }
                 onLoginClick();
                 setIsSidebarOpen(false);
               }}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 active:scale-[0.98] transition"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 active:scale-[0.98] transition cursor-pointer"
             >
               <LogIn size={20} />
               Login

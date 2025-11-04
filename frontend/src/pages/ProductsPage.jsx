@@ -30,6 +30,14 @@ export default function ProductsPage() {
   const [wishlist, setWishlist] = useState([]);
   const [wishlistLoading, setWishlistLoading] = useState(null);
 
+  const handleResetFilters = () => {
+    setQuery("");
+    setCategory("");
+    setShop("");
+    setPage(1);
+    // fetchProducts(); // fetch all again
+  };
+
   const fetchProducts = async (filters = {}) => {
     try {
       setLoading(true);
@@ -176,6 +184,17 @@ export default function ProductsPage() {
             </option>
           ))}
         </select>
+
+        {(query || category || shop) && (
+          <button
+            type="button"
+            onClick={handleResetFilters}
+            className="px-4 py-2 rounded-lg bg-red-100 text-red-700 border border-red-300 
+                      hover:bg-red-200 hover:text-red-800 transition font-medium shadow-sm"
+          >
+            Reset Filters
+          </button>
+        )}
       </div>
 
       {/* Products Grid */}

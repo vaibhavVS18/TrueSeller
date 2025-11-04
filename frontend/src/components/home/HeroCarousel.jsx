@@ -2,25 +2,25 @@ import React, { useState, useEffect } from "react";
 
 const slides = [
   {
-    img: "/shop1.png",
+    img: "/temp1.png",
     title: "Sell your Products",
     desc1: "Sell your homemade product with the whole nation",
     desc2: "and Earn our Verified Badge as a mark of trust and quality.",
   },
   {
-    img: "/shop2.png",
+    img: "/temp2.png",
     title: "For Shopkeepers",
     desc1: "Turn Your Passion into Profit by 'Create your Shop'",
     desc2: "Upload product photos with prices and start selling instantly.",
   },
   {
-    img: "/shop3.png",
+    img: "/temp3.png",
     title: "For Buyers",
     desc1: "Purchase from Famous and Authentic Shops across India.",
     desc2: "Enjoy famous regional items delivered to your doorstep.",
   },
   {
-    img: "/shop4.png",
+    img: "/temp4.png",
     title: "Nationwide Reach",
     desc1: "Shopkeepers can sell anywhere in India without limits.",
     desc2: "Buyers can access authentic products from other states.",

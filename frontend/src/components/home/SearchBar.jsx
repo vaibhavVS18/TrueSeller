@@ -25,7 +25,7 @@ const SearchBar = () => {
       />
       <button
         type="submit"
-        className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white px-4 py-2 rounded-full ml-1 hover:bg-blue-800 transition"
+        className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white px-4 py-2 rounded-full ml-1 hover:bg-blue-800 transition cursor-pointer"
       >
         <Search size={18} />
       </button>
