@@ -40,7 +40,7 @@ return (
             onMouseLeave={() => setIsLeftHovered(false)}
           >
             <img 
-              src={isLeftHovered ? "/left.png" : "/left1.png"}
+              src={isLeftHovered ? "https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275348/left_cpy0vq.png" : "https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275348/left1_pugqlr.png"}
               alt="left hero"
               className="h-full object-contain"
             />
@@ -54,7 +54,7 @@ return (
             onMouseLeave={() => setIsLeftHovered(false)}
           >
             <img 
-              src={isLeftHovered ? "/right.png" : "/right1.png"}
+              src={isLeftHovered ? "https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275349/right_xpdyik.png" : "https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275349/right1_mktnnw.png"}
               alt="right hero"
               className="h-full object-contain"
             />

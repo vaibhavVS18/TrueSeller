@@ -8,7 +8,7 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
     // <section className="flex flex-col items-center justify-center lg:items-start w-full text-center lg:text-left px-4 sm:px-6 lg:py-0">
       <section
         className={`relative flex flex-col flex-1 h-full items-center justify-between text-center lg:text-left sm:px-2 
-        ${isLeftHovered ? "bg-[url('/bs5.png')]" : "" } 
+        ${isLeftHovered ? "bg-[url('https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs5_n7u95t.png')]" : "" } 
         bg-cover bg-center transition duration-200`}
       >
       
@@ -88,7 +88,7 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
 
       {
       <div className={`${isLeftHovered ? "invisible" : ""} flex flex-1 items-end h-full transition duration-100`}>
-        <img src="bs4.png" className="max-h-[82vh] md:max-w-[87vh] object-contain"></img>
+        <img src="https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs4_xrstpy.png" className="max-h-[82vh] md:max-w-[87vh] object-contain"></img>
       </div>
       }
 

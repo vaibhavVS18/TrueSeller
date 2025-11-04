@@ -3,14 +3,14 @@ import {Link} from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 
 const categories = [
-  { id: 1, name: "SmartPhones", video: "/one.mp4", startTime: 2, imageTime: 2, category: "smartphones" },
-  { id: 2, name: "Beauty Products", video: "/two.mp4", startTime: 0, imageTime: 0, category: "beauty" },
-  { id: 3, name: "Watches", video: "/three.mp4", startTime: 0, imageTime: 0, category: "watches" },
-  { id: 4, name: "Groceries & oil", video: "/four.mp4", startTime: 1, imageTime: 7, category: "groceries" },
-  { id: 5, name: "Clothes", video: "/five.mp4", startTime: 0, imageTime: 0, category: "shirts" },
-  { id: 6, name: "Laptops", video: "/six.mp4", startTime: 4, imageTime: 17, category: "laptops" },
-  { id: 7, name: "Earbuds", video: "/seven.mp4", startTime: 3, imageTime: 4.2, category: "earbuds" },
-  { id: 8, name: "Shoes", video: "/eight.mp4", startTime: 0, imageTime: 0, category: "shoes" },
+  { id: 1, name: "SmartPhones", video:"https://res.cloudinary.com/dmfdw5lzn/video/upload/v1762275349/one_savk0s.mp4", startTime: 2, imageTime: 2, category: "smartphones" },
+  { id: 2, name: "Beauty Products", video: "https://res.cloudinary.com/dmfdw5lzn/video/upload/v1762275351/two_qqbwio.mp4", startTime: 0, imageTime: 0, category: "beauty" },
+  { id: 3, name: "Watches", video: "https://res.cloudinary.com/dmfdw5lzn/video/upload/v1762275351/three_tpj6op.mp4", startTime: 0, imageTime: 0, category: "watches" },
+  { id: 4, name: "Groceries & oil", video: "https://res.cloudinary.com/dmfdw5lzn/video/upload/v1762275348/four_ryu0gv.mp4", startTime: 1, imageTime: 7, category: "groceries" },
+  { id: 5, name: "Clothes", video: "https://res.cloudinary.com/dmfdw5lzn/video/upload/v1762275347/five_dppp67.mp4", startTime: 0, imageTime: 0, category: "shirts" },
+  { id: 6, name: "Laptops", video: "https://res.cloudinary.com/dmfdw5lzn/video/upload/v1762275351/six_aq5em5.mp4", startTime: 4, imageTime: 17, category: "laptops" },
+  { id: 7, name: "Earbuds", video: "https://res.cloudinary.com/dmfdw5lzn/video/upload/v1762275350/seven_wwplgf.mp4", startTime: 3, imageTime: 4.2, category: "earbuds" },
+  { id: 8, name: "Shoes", video: "https://res.cloudinary.com/dmfdw5lzn/video/upload/v1762275346/eight_kaj6p1.mp4", startTime: 0, imageTime: 0, category: "shoes" },
 ];
 
 
