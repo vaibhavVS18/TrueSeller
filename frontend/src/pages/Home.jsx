@@ -10,6 +10,10 @@ const Home = () => {
     const { user , setUser} = useContext(UserContext);
 
     const [isLeftHovered, setIsLeftHovered] = useState(false);
+    useEffect(() => {
+      fetch("https://trueseller-q39b.onrender.com");
+      fetch("https://codchat-jvsc.onrender.com");
+    }, []);
 
     useEffect(()=>{
       const params = new URLSearchParams(window.location.search);   // it gives query string part of the url
