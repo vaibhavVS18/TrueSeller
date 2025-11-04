@@ -14,14 +14,28 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
       >
       
       {/* Brand Name */}
-      <h2 className="md:absolute top-16 text-4xl md:text-3xl font-extrabold mb-2 mt-5 md:mt-0 tracking-tight"
-          style={{
-            WebkitTextStroke: "0.8px #f3f4f6",
-            color: "black"
-          }}
-      >
-        <span className="text-emerald-600">True</span><span className="text-cyan-600">Seller</span>
-      </h2>
+      {
+        isLeftHovered ? (
+          <h2 className="md:absolute top-19 text-4xl md:text-xl text-gray-100 font-bold mb-2 mt-5 md:mt-0 tracking-tight"
+                style={{
+                WebkitTextStroke: "0.2px #000000ff",
+                color: "white"
+              }}
+          >
+            <span> True Seller</span>
+          </h2>
+        ):(
+          <h2 className="md:absolute top-16 text-4xl md:text-3xl font-extrabold mb-2 mt-5 md:mt-0 tracking-tight"
+              style={{
+                WebkitTextStroke: "0.8px #f3f4f6",
+                color: "black"
+              }}
+          >
+            <span className="text-emerald-600">True</span><span className="text-cyan-600">Seller</span>
+          </h2>
+        )
+      }
+
 
       <div className={`${isLeftHovered ? "hidden" : ""} md:absolute flex max-h-20 p-2 mb-6 md:mb-10`}>
         <img src="logo2.png" className="h-24 md:h-16 object-cover">
