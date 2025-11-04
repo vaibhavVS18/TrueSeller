@@ -11,10 +11,13 @@ import ProfilePage from '../pages/ProfilePage.jsx';
 import WishlistPage from '../pages/WishListPage.jsx';
 import CartPage from '../pages/CartPage.jsx';
 import OrdersPage from '../pages/OrdersPage.jsx';
+import ScrollToTop from '../components/common/ScrollToTop.jsx';
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
+        {/* scroll to top when route changes */}
+        <ScrollToTop/>   
         <Routes>
             <Route element={<Layout/>}>
                 <Route path="/" element={<Home/>} />

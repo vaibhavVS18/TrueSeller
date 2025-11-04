@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@media (hover: none) {
+  .disable-touch-hover:hover {
+    background: initial !important;
+    transform: none !important;
+  }
+}

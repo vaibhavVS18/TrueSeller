@@ -14,8 +14,6 @@ const categories = [
 ];
 
 
-
-
 const ExploreCategories = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
   const videoRefs = useRef([]);
@@ -33,7 +31,7 @@ const ExploreCategories = () => {
         { once: true } means this listener automatically removes itself after running once (cleaner & memory-safe).
     */        
             video.addEventListener("loadedmetadata",() => {
-                    video.currentTime = start;
+                    video.currentTime = categories[index].imageTime;
 
                     if (isMobile) {
                         video.play().catch(() => {});

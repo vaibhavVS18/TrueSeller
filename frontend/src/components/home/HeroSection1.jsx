@@ -9,7 +9,7 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
     // <section className="flex flex-col items-center justify-center lg:items-start w-full text-center lg:text-left px-4 sm:px-6 lg:py-0">
       <section
         className={`relative flex flex-col flex-1 h-full items-center justify-between text-center lg:text-left sm:px-2 
-        ${isLeftHovered ? "md:bg-[url('https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs5_n7u95t.png')]" : "" } 
+        ${isLeftHovered ? "bg-[url('https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs5_n7u95t.png')]" : "" } 
         bg-cover bg-center transition duration-200`}
       >
       
@@ -36,9 +36,28 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
       </h1>
 
         {/* Tagline */}
-      <motion.button className="md:absolute top-47 flex justify-center items-center gap-2 px-2 py-1 text-basic text-white bg-gradient-to-r from-emerald-600 to-cyan-600 font-medium rounded-full border hover:border-gray-100 cursor-pointer shadow-md shadow-emerald-700/30 hover:shadow-lg transition-all duration-100"
+      <motion.button className="hidden md:absolute top-47 md:flex justify-center items-center gap-2 px-2 py-1 text-basic text-white bg-gradient-to-r from-emerald-600 to-cyan-600 font-medium rounded-full border hover:border-gray-100 cursor-pointer shadow-md shadow-emerald-700/30 hover:shadow-lg transition-all duration-100"
         onMouseEnter={()=>{setIsLeftHovered(true)}}
         onMouseLeave={()=>(setIsLeftHovered(false))}
+        onClick={()=>{
+          document.getElementById("features").scrollIntoView({behavior: "smooth"});
+        }}
+
+        animate={{
+          y: [0, -5, 0], 
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+          Explore India's Fastest Growing Marketplace
+          <FaArrowDown className="text-sm" />
+          
+      </motion.button>
+
+      <motion.button className="md:hidden flex justify-center items-center gap-2 px-2 py-1 text-basic text-white bg-gradient-to-r from-emerald-600 to-cyan-600 font-medium rounded-full border hover:border-gray-100 cursor-pointer shadow-md shadow-emerald-700/30 hover:shadow-lg transition-all duration-100"
         onClick={()=>{
           document.getElementById("features").scrollIntoView({behavior: "smooth"});
         }}

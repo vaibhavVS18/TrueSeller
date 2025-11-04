@@ -76,7 +76,7 @@ const Home = () => {
         <div className="flex justify-between h-full">
           {/* Left Hero */}
           <div
-            className="hidden h-[90.9vh] sm:flex items-center justify-center"
+            className="hidden h-[90.9vh] lg:flex items-center justify-center"
             onMouseEnter={() => setIsLeftHovered(true)}
             onMouseLeave={() => setIsLeftHovered(false)}
           >
@@ -102,7 +102,7 @@ const Home = () => {
 
           {/* Right Hero */}
           <div
-            className="hidden h-[90.9vh] sm:flex items-center"
+            className="hidden h-[90.9vh] lg:flex items-center"
             onMouseEnter={() => setIsLeftHovered(true)}
             onMouseLeave={() => setIsLeftHovered(false)}
           >
