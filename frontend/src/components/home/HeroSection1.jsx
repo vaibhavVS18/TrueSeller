@@ -1,17 +1,33 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import {FaArrowRight, FaArrowDown} from "react-icons/fa";
 import {motion} from "framer-motion";
 
 const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
 
+  const [bgLoaded, setBgLoaded] = useState(false);
+
+  useEffect(() => {
+    if (isLeftHovered) {
+      const img = new Image();
+      img.src = "https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs5_n7u95t.png";
+      img.onload = () => setBgLoaded(true);
+    } else {
+      setBgLoaded(false);
+    }
+  }, [isLeftHovered]);
+
   return (
     // <section className="flex flex-col items-center justify-center lg:items-start w-full text-center lg:text-left px-4 sm:px-6 lg:py-0">
-      <section
-        className={`relative flex flex-col flex-1 h-full items-center justify-between text-center lg:text-left sm:px-2 
-        ${isLeftHovered ? "bg-[url('https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs5_n7u95t.png')]" : "" } 
-        bg-cover bg-center transition duration-200`}
-      >
+    <section
+      className={`relative flex flex-col flex-1 h-full items-center justify-between text-center lg:text-left sm:px-2
+        transition duration-500 bg-cover bg-center`}
+      style={{
+        backgroundImage: bgLoaded
+          ? "url('https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs5_n7u95t.png')"
+          : "", // placeholder
+      }}
+    >
       
       {/* Brand Name */}
       <h2 className="md:absolute top-16 text-4xl md:text-3xl font-extrabold mb-2 mt-5 md:mt-0 tracking-tight"
@@ -89,7 +105,9 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
 
       {
       <div className={`${isLeftHovered ? "invisible" : ""} flex flex-1 items-end h-full transition duration-100`}>
-        <img src="https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs4_xrstpy.png" className="max-h-[82vh] md:max-w-[87vh] object-contain"></img>
+        <img src="https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs4_xrstpy.png" className="max-h-[82vh] md:max-w-[87vh] object-contain"
+          loading="lazy"
+        ></img>
       </div>
       }
 
