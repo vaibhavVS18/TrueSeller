@@ -4,6 +4,7 @@ import {FaArrowRight, FaArrowDown} from "react-icons/fa";
 import {motion} from "framer-motion";
 
 const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
+
   return (
     // <section className="flex flex-col items-center justify-center lg:items-start w-full text-center lg:text-left px-4 sm:px-6 lg:py-0">
       <section

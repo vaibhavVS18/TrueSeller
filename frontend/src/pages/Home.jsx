@@ -10,6 +10,14 @@ const Home = () => {
     const { user , setUser} = useContext(UserContext);
 
     const [isLeftHovered, setIsLeftHovered] = useState(false);
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      const timer = setTimeout(() => setLoading(false), 500); // simulate delay
+      return () => clearTimeout(timer);
+    }, []);
+
     useEffect(() => {
       fetch("https://trueseller-q39b.onrender.com");
       fetch("https://codchat-jvsc.onrender.com");
@@ -31,7 +39,14 @@ const Home = () => {
     }, []);
 
 return (
+  
   <>
+                {
+              loading ? (
+                <div className="flex items-center justify-center h-screen bg-white">
+                  <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
+                </div>
+                ):(
        <div className="flex flex-col items-between w-full h-[86vh] sm:h-[91vh] border-b">
         <div className="flex justify-between h-full">
 
@@ -45,6 +60,7 @@ return (
               className="h-full object-contain"
             />
           </div>
+
           <div className="flex flex-1 justify-center">
             <HeroSection1 isLeftHovered={isLeftHovered} setIsLeftHovered={setIsLeftHovered} />
           </div>
@@ -62,6 +78,8 @@ return (
 
         </div>
       </div>
+                )
+              }
 
 
       {/* second section of home page */}
