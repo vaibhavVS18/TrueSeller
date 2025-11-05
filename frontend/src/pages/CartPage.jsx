@@ -69,7 +69,7 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-8">
-      <h1 className="text-2xl font-bold text-center mb-6 text-emerald-700">
+      <h1 className="text-2xl xl:text-3xl font-bold text-center mb-6 text-emerald-700">
         Your Cart
       </h1>
 
@@ -162,7 +162,7 @@ export default function CartPage() {
               <span className="font-bold text-emerald-700">₹{totalPrice.toFixed(2)}</span>
             </p>
 
-            <div className="mb-4">
+            <div className="mb-1">
               <label className="block text-gray-700 font-medium mb-1">Delivery Address</label>
               <textarea
                 rows="1"
@@ -190,13 +190,31 @@ export default function CartPage() {
               <label className="block text-gray-700 font-medium mb-1">Payment Method</label>
               <select
                 value={cart.paymentMethod}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value === "Online") {
+                    // Prevent selecting online payment
+                    alert("Online Payment is not available at this time");
+                    return;
+                  }
+                  setPaymentMethod(e.target.value);
+                }}
                 className="w-full border rounded p-2 focus:outline-none focus:ring focus:border-emerald-400"
               >
                 <option value="COD">Cash on Delivery (COD)</option>
-                <option value="Online">Online Payment</option>
+                <option
+                  value="Online"
+                  disabled
+                  className="cursor-not-allowed text-gray-400"
+                >
+                  Online Payment (Not available)
+                </option>
               </select>
+
+              <p className="text-blue-500 text-center text-sm mt-1">
+                Online payment will be available soon!
+              </p>
             </div>
+
 
             <button
               onClick={handleCheckout}

@@ -13,7 +13,6 @@ export default function Shop() {
   const { user, loading } = useContext(UserContext);
   const currUserId = user?._id;
 
-  
   const [shop, setShop] = useState(null);
   const [products, setProducts] = useState([]);
   const [isOwner, setIsOwner] = useState(false);
@@ -58,7 +57,6 @@ export default function Shop() {
         setShop(res.data.shop);
         if (res.data.shop.owner._id === user._id) setIsOwner(true);
 
-        // Pre-fill shop form for owner
         setShopForm({
           shopname: res.data.shop.shopname,
           city: res.data.shop.city,
@@ -96,13 +94,11 @@ export default function Shop() {
     if (!loading) fetchProducts();
   }, [shopId, page, loading]);
 
-  // Handle product input change
   const handleProductChange = (e) => {
     const { name, value } = e.target;
     setNewProduct((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle shop form input change
   const handleShopChange = (e) => {
     const { name, value, files } = e.target;
     if (files) {
@@ -112,7 +108,6 @@ export default function Shop() {
     }
   };
 
-  // Upload images for product
   const handleImageUpload = async (e) => {
     if (!e.target.files.length) return;
     try {
@@ -134,7 +129,6 @@ export default function Shop() {
     }
   };
 
-  // Create new product
   const handleCreateProduct = async (e) => {
     e.preventDefault();
     try {
@@ -162,7 +156,6 @@ export default function Shop() {
     }
   };
 
-  // Update shop details (owner only)
   const handleUpdateShop = async (e) => {
     e.preventDefault();
     try {
@@ -177,7 +170,7 @@ export default function Shop() {
         city: shopForm.city,
         address: shopForm.address,
         contactEmail: shopForm.contactEmail,
-        contactPhone: shopForm.contactPhone,        
+        contactPhone: shopForm.contactPhone,
         description: shopForm.description,
         logo: logoUrl,
       };
@@ -189,216 +182,324 @@ export default function Shop() {
 
       setShop(res.data.shop);
       setShowShopModal(false);
-    //   alert("Shop updated successfully!");
     } catch (err) {
       console.error(err);
       alert("Failed to update shop");
-    }
-    finally{
+    } finally {
       setShopUpdateLoading(false);
+    }
+  };
+
+  const scrollToProducts = () => {
+    const productsSection = document.getElementById('products-section');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   if (loading || !shop) return <Loader />;
 
   return (
-    <div className="min-h-screen flex-col mx-auto p-5">
-      
-      <div className="md:flex p-3 md:p-10 md:mr-10 mb-4 gap-25">
-        {/* Shop Logo */}
-          <div className="flex-col mx-auto w-full max-w-70 md:max-w-130 md:max-h-130 justify-center mb-4">
-            <img
-              src={shop.logo}
-              alt={shop.shopname}
-              className="w-full h-full rounded-full object-cover border-4 border-emerald-400 shadow-lg"
-            />
-            <h1 className="flex justify-center text-4xl text-emerald-800 font-bold">{shop.shopname}</h1>
-          </div>
-
-          {/* Shop Info */}
-          <div className="relative flex flex-col flex-1 max-w-150 max-h-150 p-5 md:p-10 items-center text-center bg-white rounded-xl shadow-md border">
-            
-            {/* Edit Icon */}
-            {isOwner && (
-              <button
-                onClick={() => setShowShopModal(true)}
-                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl"
-                title="Edit Shop Info"
-              >
-                ✏️
-              </button>
-            )}
-
-            
-            {/* Logo */}
-            <img
-              src={shop.logo}
-              alt={shop.shopname}
-              className="hidden md:block w-32 h-32 rounded-full object-cover border-4 border-emerald-400 shadow mb-4"
-            />
-
-            {/* Name */}
-            <h1 className="hidden md:block text-3xl font-bold text-emerald-800 mb-2">{shop.shopname}</h1>
-
-            {/* Basic Info */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2 text-gray-700 text-lg w-full max-w-2xl mt-2 mb-4">
-              <div className="flex gap-3">
-                <span className="font-semibold w-28">Address:</span>
-                <span className="text-emerald-600">{shop.address}</span>
-              </div>
-
-              <div className="flex gap-3">
-                <span className="font-semibold w-28">City:</span>
-                <span className="text-emerald-600">{shop.city}</span>
-              </div>
-
-              <div className="flex gap-3">
-                <span className="font-semibold w-28">Category:</span>
-                <span className="text-emerald-600">{shop.category}</span>
-              </div>
-
-              <div className="flex gap-3">
-                <span className="font-semibold w-28">Phone:</span>
-                <span className="text-emerald-600">{shop.contactPhone}</span>
-              </div>
-
-              <div className="flex gap-3">
-                <span className="font-semibold w-28">Email:</span>
-                <span className="text-emerald-600">{shop.contactEmail || "Not provided"}</span>
-              </div>
-
-              <div className="flex gap-3">
-                <span className="font-semibold w-28">Rating:</span>
-                <span className="text-gold-200">⭐ {shop.rating?.toFixed(1) || "0.0"}</span>
-              </div>
+    <div className="h-screen overflow-y-auto bg-gray-50">
+      {/* Main Shop Section */}
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Mobile Layout */}
+          <div className="lg:hidden space-y-4">
+            {/* Logo Section */}
+            <div className="flex flex-col gap-2 bg-white rounded-xl shadow-lg p-6 flex justify-center items-center">
+              <img
+                src={shop.logo}
+                alt={shop.shopname}
+                className="w-32 h-32 rounded-full object-cover border-4 border-emerald-400 shadow-md"
+              />
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                {shop.shopname}
+              </h1>
             </div>
 
+            {/* Shop Info Card */}
+            <div className="bg-white rounded-xl shadow-lg p-4 relative overflow-hidden">
+            
+              <div className="flex justify-between">
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                  {shop.shopname}
+                </h1>
 
-            <button
-              className="mt-2 bg-emerald-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-600 transition"
-              onClick={() =>{
-                let scrollTop;
-                if(window.innerWidth >= 640){
-                  scrollTop = 648;   // sm
-                }
-                else{
-                  scrollTop = 740;
-                }
-
-                window.scrollTo(
-                {
-                  top:scrollTop,
-                  behavior: 'smooth' 
-                }
-                )
-              }}
-            >
-              Explore Our Products
-            </button>
-
-            {/* Description (optional) */}
-            {shop.description && (
-              <div className="flex gap-3 mt-2">
-                <span className="font-semibold w-28">About Shop:</span>
-                <p className="text-gray-600 max-w-lg">{shop.description}</p>
+                {isOwner && (
+                  <button
+                    onClick={() => setShowShopModal(true)}
+                    className="text-gray-700 border-2 border-gray-300 rounded-lg hover:bg-gray-100 px-4 py-2 font-medium transition"
+                  >
+                    Update ✏️
+                  </button>
+                )}
               </div>
-            )}
+  
 
+              {/* Category Badge */}
+              <div className="inline-block bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-lg mb-3">
+                <span className="text-lg font-bold">{shop.category}</span>
+              </div>
+
+              {/* Info Grid */}
+              <div className="grid grid-cols-2 gap-2 text-sm mb-3 pb-3 border-b">
+                <div>
+                  <span className="text-gray-600">Rating:</span>
+                  <p className="text-yellow-500 font-semibold">⭐ {shop.rating?.toFixed(1) || "0.0"}</p>
+                </div>
+
+                <div>
+                  <span className="text-gray-600">City:</span>
+                  <p className="text-gray-900 font-semibold">{shop.city}</p>
+                </div>
+
+                <div className="col-span-2">
+                  <span className="text-gray-600">Phone:</span>
+                  <p className="text-gray-900 font-semibold break-all">{shop.contactPhone}</p>
+                </div>
+
+                <div className="col-span-2">
+                  <span className="text-gray-600">Email:</span>
+                  <p className="text-gray-900 font-semibold break-all">{shop.contactEmail}</p>
+                </div>
+
+                <div className="col-span-2">
+                  <span className="text-gray-600">Address:</span>
+                  <p className="text-gray-900 font-semibold">{shop.address || "—"}</p>
+                </div>
+              </div>
+
+              {/* Description */}
+              {shop.description && (
+                <div className="mb-4">
+                  <h3 className="font-semibold text-gray-900 text-sm mb-1">About Shop:</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">{shop.description}</p>
+                </div>
+              )}
+
+              {/* Explore Button */}
+              <button
+                onClick={scrollToProducts}
+                className="w-full bg-cyan-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-cyan-600 transition shadow-md mb-4"
+              >
+                Explore Our Products 🛍️
+              </button>
+
+              {/* Owner Section - Mobile */}
+              {isOwner && (
+                <div className="pt-4 border-t">
+                  <h2 className="text-lg font-bold mb-2 text-gray-800">Owner Section</h2>
+                  <div className="flex flex-col gap-2">
+                    <button
+                      onClick={() => setShowProductModal(true)}
+                      className="w-full bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition font-medium"
+                    >
+                      Add New Product
+                    </button>
+                    <button
+                      onClick={() => setShowShopModal(true)}
+                      className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition font-medium"
+                    >
+                      Update Shop Details
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
-      </div>
-
-
-      {/* Products */}
-      <h2 className="flex justify-center text-2xl font-semibold mb-4">Our Products</h2>
-      
-      {loadingProducts ? (
-        <Loader />
-        ) : products.length==0 ? (<p>no product added yet</p>):(
-          <>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <Link
-            to={`/product/${product._id}`}
-              key={product._id}
-              className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-xl transition-transform transform hover:-translate-y-1 hover:scale-105 p-4 flex flex-col"
-            >
-              {/* Image with hover zoom */}
-              <div className="overflow-hidden h-40 rounded-lg mb-3">
+          {/* Desktop/Tablet Layout */}
+          <div className="hidden lg:flex gap-6 xl:gap-8 h-[calc(100vh-8rem)]">
+            {/* Left: Logo Section */}
+            <div className="flex-1 flex-col gap-10 bg-white rounded-xl shadow-lg p-6 overflow-hidden flex justify-center items-center">
                 <img
-                  src={product.images?.[0] || "/vite.svg"}
-                  alt={product.name}
-                  className="w-full h-48 object-cover transition-transform duration-300 ease-in-out hover:scale-110"
+                  src={shop.logo}
+                  alt={shop.shopname}
+                  className="w-84 h-84 xl:w-100 xl:h-100 rounded-full object-cover border-4 border-emerald-400 shadow-md"
+                />
+
+              <h1 className="text-3xl xl:text-4xl font-bold text-gray-900 mb-4">
+                {shop.shopname}
+              </h1>            
+              
+            </div>
+
+            {/* Right: Shop Info */}
+            <div className="relative flex-1 bg-white rounded-xl shadow-lg p-6 relative overflow-y-auto">
+              
+              {isOwner && (
+                <button
+                  onClick={() => setShowShopModal(true)}
+                  className="absolute text-gray-700 border-2 border-gray-300 rounded-lg hover:bg-gray-100 px-4 py-2 font-medium transition"
+                >
+                  Update ✏️
+                </button>
+              )}
+
+              <div className="flex justify-center items-center">
+                <img
+                  src={shop.logo}
+                  alt={shop.shopname}
+                  className="w-32 h-32 rounded-full object-cover border-4 border-emerald-400 shadow-md"
                 />
               </div>
 
-              {/* Name + Price */}
-              <div className="flex justify-between items-center mb-2">
-                <h3 className="font-semibold text-gray-900 text-lg hover:text-blue-600 transition-colors">
-                  {product.name}
-                </h3>
-                <p className="text-blue-600 font-bold text-lg">₹{product.price}</p>
+              {/* Shop Name */}
+              <h1 className="text-xl text-center xl:text-3xl font-bold text-gray-900 mb-4">
+                {shop.shopname}
+              </h1>
+
+              {/* Category Badge */}
+              <div className="inline-block bg-emerald-100 text-emerald-800 px-5 py-2 rounded-lg mb-4">
+                <span className="text-2xl font-bold">{shop.category}</span>
               </div>
 
-              {/* Category & Shop */}
-              <div className="mt-auto pt-2 text-sm text-gray-500 border-t">
-                <p className="hover:text-gray-800 transition-colors">
-                  Category: {product.category || "—"}
-                </p>
-                <p className="hover:text-gray-800 font-bold text-gray-450 transition-colors">
-                  Shop: {shop?.shopname || "—"}
-                </p>
+              {/* Info Grid */}
+              <div className="space-y-3 mb-4 pb-4 border-b-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600 font-medium">Rating:</span>
+                  <span className="text-yellow-500 font-semibold">⭐ {shop.rating?.toFixed(1) || "0.0"}</span>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600 font-medium">City:</span>
+                  <span className="text-gray-900 font-semibold">{shop.city}</span>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600 font-medium">Phone:</span>
+                  <span className="text-gray-900 font-semibold">{shop.contactPhone}</span>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600 font-medium">Email:</span>
+                  <span className="text-gray-900 font-semibold break-all">{shop.contactEmail}</span>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600 font-medium">Address:</span>
+                  <span className="text-gray-900 font-semibold text-right">{shop.address || "—"}</span>
+                </div>
               </div>
-            </Link>
-          ))}
-        </div>
 
-        {/* Pagination */}
-      <div className="flex justify-center mt-6 space-x-2">
-        <button
-          disabled={page === 1}
-          onClick={() => setPage((p) => p - 1)}
-          className="px-3 py-1 border rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <span>
-          Page {page} of {totalPages}
-        </span>
-        <button
-          disabled={page === totalPages}
-          onClick={() => setPage((p) => p + 1)}
-          className="px-3 py-1 border rounded disabled:opacity-50"
-        >
-          Next
-        </button>
-      </div>
-      </>
-      )}
+              {/* Description */}
+              {shop.description && (
+                <div className="mb-4">
+                  <h3 className="font-semibold text-gray-900 text-lg mb-2">About this shop:</h3>
+                  <p className="text-gray-600 leading-relaxed">{shop.description}</p>
+                </div>
+              )}
 
+              {/* Explore Button */}
+              <button
+                onClick={scrollToProducts}
+                className="w-full bg-cyan-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-cyan-600 transition shadow-md"
+              >
+                Explore Our Products 🛍️
+              </button>
 
-      {/* Owner Section */}
-      {isOwner && (
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-3">Owner Section</h2>
-          <div className="flex space-x-2">
-            <button
-              onClick={() => setShowProductModal(true)}
-              className="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
-            >
-              Add New Product
-            </button>
-            <button
-              onClick={() => setShowShopModal(true)}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              Update Shop Details
-            </button>
+              {/* Owner Section - Desktop */}
+              {isOwner && (
+                <div className="mt-6 pt-6 border-t">
+                  <h2 className="text-lg font-bold mb-3 text-gray-800">Owner Section</h2>
+                  <div className="flex flex-col gap-3">
+                    <button
+                      onClick={() => setShowProductModal(true)}
+                      className="w-full bg-emerald-500 text-white px-4 py-2.5 rounded-lg hover:bg-emerald-600 transition font-medium"
+                    >
+                      Add New Product
+                    </button>
+                    <button
+                      onClick={() => setShowShopModal(true)}
+                      className="w-full bg-blue-500 text-white px-4 py-2.5 rounded-lg hover:bg-blue-600 transition font-medium"
+                    >
+                      Update Shop Details
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      )}
+      </div>
 
-      {/* Product Modal */}
+      {/* Products Section */}
+      <div id="products-section" className="w-full px-4 sm:px-6 lg:px-8 py-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 text-gray-800">
+            Our Products
+          </h2>
+
+          {loadingProducts ? (
+            <Loader />
+          ) : products.length === 0 ? (
+            <p className="text-center text-gray-500 py-12">No products added yet</p>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                {products.map((product) => (
+                  <Link
+                    to={`/product/${product._id}`}
+                    key={product._id}
+                    className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 p-4 flex flex-col"
+                  >
+                    <div className="overflow-hidden rounded-lg mb-3 bg-gray-50">
+                      <img
+                        src={product.images?.[0] || "/vite.svg"}
+                        alt={product.name}
+                        className="w-full h-48 object-contain transition-transform duration-300 hover:scale-110"
+                      />
+                    </div>
+
+                    <div className="flex justify-between items-start gap-2 mb-2">
+                      <h3 className="font-semibold text-gray-900 text-base sm:text-lg hover:text-blue-600 transition-colors line-clamp-2">
+                        {product.name}
+                      </h3>
+                      <p className="text-blue-600 font-bold text-lg whitespace-nowrap">
+                        ₹{product.price}
+                      </p>
+                    </div>
+
+                    <div className="mt-auto pt-3 text-sm text-gray-500 border-t space-y-1">
+                      <p className="hover:text-gray-800 transition-colors">
+                        Category: {product.category || "—"}
+                      </p>
+                      <p className="hover:text-gray-800 font-medium text-gray-700 transition-colors">
+                        Shop: {shop?.shopname || "—"}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Pagination */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+                <button
+                  disabled={page === 1}
+                  onClick={() => setPage((p) => p - 1)}
+                  className="w-full sm:w-auto px-6 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition font-medium"
+                >
+                  Previous
+                </button>
+                <span className="text-gray-700 font-medium">
+                  Page {page} of {totalPages}
+                </span>
+                <button
+                  disabled={page === totalPages}
+                  onClick={() => setPage((p) => p + 1)}
+                  className="w-full sm:w-auto px-6 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition font-medium"
+                >
+                  Next
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Modals */}
       <ProductFormModal
         showProductModal={showProductModal}
         setShowProductModal={setShowProductModal}
@@ -409,7 +510,6 @@ export default function Shop() {
         handleCreateProduct={handleCreateProduct}
       />
 
-      {/* Shop Update Modal */}
       <UpdateShopFormModal
         showShopModal={showShopModal}
         setShowShopModal={setShowShopModal}

@@ -1,85 +1,89 @@
-import fs from "fs";
+          <div className="relative flex flex-col flex-1 max-w-150 max-h-150 p-5 md:p-10 items-center text-center bg-white rounded-xl shadow-md border">
+            
+            {/* Edit Icon */}
+            {isOwner && (
+              <button
+                onClick={() => setShowShopModal(true)}
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl"
+                title="Edit Shop Info"
+              >
+                ✏️
+              </button>
+            )}
 
-const categories = [
-  "beauty",
-  "fragrances",
-  "furniture",
-  "groceries",
-  "home-decoration",
-  "kitchen-accessories",
-  "laptops",
-  "mens-shirts",
-  "mens-shoes",
-  "mens-watches",
-  "mobile-accessories",
-  "motorcycle",
-  "skin-care",
-  "smartphones",
-  "sports-accessories",
-  "sunglasses",
-  "tablets",
-  "tops",
-  "vehicle",
-  "womens-bags",
-  "womens-dresses",
-  "womens-jewellery",
-  "womens-shoes",
-  "womens-watches",
-];
+            
+            {/* Logo */}
+            <img
+              src={shop.logo}
+              alt={shop.shopname}
+              className="hidden md:block w-32 h-32 rounded-full object-cover border-4 border-emerald-400 shadow mb-4"
+            />
 
-const cities = [
-  "Delhi",
-  "Mumbai",
-  "Bangalore",
-  "Pune",
-  "Hyderabad",
-  "Chennai",
-  "Jaipur",
-  "Ahmedabad",
-  "Kolkata",
-  "Surat",
-];
+            {/* Name */}
+            <h1 className="hidden md:block text-3xl font-bold text-emerald-800 mb-2">{shop.shopname}</h1>
 
-const randomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            {/* Basic Info */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2 text-gray-700 text-lg w-full max-w-2xl mt-2 mb-4">
+              <div className="flex gap-3">
+                <span className="font-semibold w-28">Address:</span>
+                <span className="text-emerald-600">{shop.address}</span>
+              </div>
 
-const colors = [
-  "2E86C1", // blue
-  "1ABC9C", // teal
-  "9B59B6", // purple
-  "E67E22", // orange
-  "F1C40F", // yellow
-  "E74C3C", // red
-  "16A085", // green
-  "34495E", // dark gray
-];
+              <div className="flex gap-3">
+                <span className="font-semibold w-28">City:</span>
+                <span className="text-emerald-600">{shop.city}</span>
+              </div>
 
-const SHOP_OWNER_ID = "68ddbcd1ec4add59e0bc6f7a"; // replace with your real owner _id
+              <div className="flex gap-3">
+                <span className="font-semibold w-28">Category:</span>
+                <span className="text-emerald-600">{shop.category}</span>
+              </div>
 
-const shops = categories.map((cat) => {
-  const city = randomElement(cities);
-  const bgColor = randomElement(colors);
-  const shopName =
-    `${cat.charAt(0).toUpperCase() + cat.slice(1).replace("-", " ")} Hub`;
+              <div className="flex gap-3">
+                <span className="font-semibold w-28">Phone:</span>
+                <span className="text-emerald-600">{shop.contactPhone}</span>
+              </div>
 
-  // always-valid logo image URL
-  const logo = `https://placehold.co/200x200/${bgColor}/FFFFFF?text=${encodeURIComponent(shopName)}`;
+              <div className="flex gap-3">
+                <span className="font-semibold w-28">Email:</span>
+                <span className="text-emerald-600">{shop.contactEmail || "Not provided"}</span>
+              </div>
 
-  return {
-    owner: SHOP_OWNER_ID,
-    shopname: shopName,
-    city,
-    address: `Shop No. ${Math.floor(Math.random() * 200 + 1)}, Main Market, ${city}`,
-    description: `Your one-stop destination for premium ${cat.replace("-", " ")} products.`,
-    logo,
-    category: cat,
-    contactEmail: `${cat.replace(/[^a-z]/gi, "")}@gmail.com`,
-    contactPhone: `${Math.floor(7000000000 + Math.random() * 2000000000)}`, // 10-digit number
-    products: [],
-    verified: Math.random() > 0.5,
-    isActive: true,
-    rating: Number((Math.random() * 1.5 + 3.5).toFixed(1)),
-  };
-});
+              <div className="flex gap-3">
+                <span className="font-semibold w-28">Rating:</span>
+                <span className="text-gold-200">⭐ {shop.rating?.toFixed(1) || "0.0"}</span>
+              </div>
+            </div>
 
-fs.writeFileSync("./shops.json", JSON.stringify(shops, null, 2));
-console.log("✅ Saved 24 realistic shops with working logos to shops.json");
+
+            <button
+              className="mt-2 bg-emerald-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-600 transition"
+              onClick={() =>{
+                let scrollTop;
+                if(window.innerWidth >= 640){
+                  scrollTop = 648;   // sm
+                }
+                else{
+                  scrollTop = 740;
+                }
+
+                window.scrollTo(
+                {
+                  top:scrollTop,
+                  behavior: 'smooth' 
+                }
+                )
+              }}
+            >
+              Explore Our Products
+            </button>
+
+            {/* Description (optional) */}
+            {shop.description && (
+              <div className="flex gap-3 mt-2">
+                <span className="font-semibold w-28">About Shop:</span>
+                <p className="text-gray-600 max-w-lg">{shop.description}</p>
+              </div>
+            )}
+
+          </div>

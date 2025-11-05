@@ -1,13 +1,27 @@
 import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import axios from "../config/axios.js";
 import { UserContext } from "../context/user.context.jsx";
 import Loader from "../components/common/Loader.jsx";
+import { LogOut } from "lucide-react";
 
 export default function ProfilePage() {
-  const { user, loading } = useContext(UserContext);
+  const { user, setUser, loading } = useContext(UserContext);
   const [shops, setShops] = useState([]);
   const [loadingShops, setLoadingShops] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("/api/users/logout");
+      localStorage.removeItem("token");
+      setUser(null);
+      navigate("/");
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+    }
+  };
 
   // Fetch user's shops
   const fetchUserShops = async () => {
@@ -32,7 +46,14 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 md:px-8 md:py-8">
       {/* Profile Info */}
-      <div className="flex flex-col max-w-md items-center text-center bg-white rounded-xl shadow-md p-6 mx-auto">
+      <div className="relative flex flex-col max-w-md items-center text-center bg-white rounded-xl shadow-md p-6 mx-auto border border-gray-400">
+          <button
+              onClick={handleLogout}
+              className="absolute top-3 right-3 flex items-center justify-center gap-1 py-1.5 px-2 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg hover:bg-gradient-to-r hover:from-cyan-600 hover:to-cyan-700 active:scale-[0.98] transition cursor-pointer"
+            >
+              <LogOut size={15} />
+              Logout
+          </button>
         <div className="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-emerald-400 shadow">
           <img
             src={user.profileImage || "/default-profile.png"}
@@ -45,7 +66,7 @@ export default function ProfilePage() {
 
         <Link
           to="/start-shop"
-          className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-6 rounded-lg shadow transition"
+          className="bg-gradient-to-r from-emerald-400 to-emerald-600 hover:bg-gradient-to-r hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition"
         >
           Create Shop
         </Link>

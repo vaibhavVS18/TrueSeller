@@ -89,7 +89,7 @@ const ImageCarousel = ({ product }) => {
         )}
       </div>
 
-      <h1 className="flex justify-center text-4xl text-emerald-800 font-bold mt-4">
+      <h1 className="flex justify-center text-3xl text-emerald-800 font-bold mt-2">
         {product.name}
       </h1>
     </div>

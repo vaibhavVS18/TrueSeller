@@ -113,7 +113,6 @@ export default function OrdersPage() {
                 </div>
              </div>
 
-
                 {/* Step Labels */}
                 <div className="flex justify-between text-xs mt-2 text-gray-600 font-medium">
                   <span>

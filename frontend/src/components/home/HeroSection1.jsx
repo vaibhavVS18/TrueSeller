@@ -102,7 +102,7 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
 
       {
       <div className={`${isLeftHovered ? "invisible" : ""} flex flex-1 items-end h-full transition duration-100`}>
-        <img src="https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs4_xrstpy.png" className="max-h-[82vh] md:max-w-[87vh] object-contain"
+        <img src="https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs4_xrstpy.png" className="max-h-[82vh] sm:max-w-[87vh] object-contain"
           loading="lazy"
         ></img>
       </div>
