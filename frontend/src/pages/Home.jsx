@@ -72,7 +72,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="flex flex-col items-between w-full h-screen overflow-y-auto md:h-[88vh] lg:h-[91vh] border-b">
+      <div className="flex flex-col items-between w-full h-[86vh] md:h-[88vh] lg:h-[91vh] border-b">
         <div className="flex justify-between h-full">
           {/* Left Hero */}
           <div
