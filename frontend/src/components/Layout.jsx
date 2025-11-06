@@ -24,7 +24,7 @@ const Layout = ()=>{
             />
 
             {/* Main page content */}
-            <main className="flex-1">
+            <main className="flex-1 w-full overflow-x-hidden">
                 <Outlet/>
             </main>
 
@@ -32,7 +32,6 @@ const Layout = ()=>{
             <Footer 
                 onLoginClick={() => setIsLoginOpen(true)} 
             />
-
             
             {/* Global Modals */}
             <RegisterModal

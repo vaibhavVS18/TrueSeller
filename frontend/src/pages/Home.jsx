@@ -4,6 +4,7 @@ import HeroSection1 from "../components/home/HeroSection1";
 import { UserContext } from "../context/user.context";
 import SecondSection from "../components/SecondSection";
 import ExploreCategories from "../components/ExploreCategories";
+import StartLoader from "../components/common/StartLoader";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -59,24 +60,18 @@ const Home = () => {
     }
   }, [navigate]);
 
-  if (loading) {
+  if (!loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-black text-white">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-lg font-medium">Loading Awesome Experience...</p>
-        </div>
-      </div>
+        <StartLoader/>
     );
   }
 
   return (
-    <>
-      <div className="flex flex-col items-between w-full h-[86vh] md:h-[88vh] lg:h-[91vh] border-b">
-        <div className="flex justify-between h-full">
+    <main className="w-full overflow-x-hidden">
+      <section className="flex w-full justify-between xl:min-h-[91vh] border-b">
           {/* Left Hero */}
           <div
-            className="hidden h-[90.9vh] lg:flex items-center justify-center"
+            className="hidden xl:flex overflow-hidden items-center justify-center"
             onMouseEnter={() => setIsLeftHovered(true)}
             onMouseLeave={() => setIsLeftHovered(false)}
           >
@@ -87,7 +82,7 @@ const Home = () => {
                   : "https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275348/left1_pugqlr.png"
               }
               alt="left hero"
-              className="h-full object-contain"
+              className="max-h-[91vh] w-auto object-contain"
               loading="lazy"
             />
           </div>
@@ -102,7 +97,7 @@ const Home = () => {
 
           {/* Right Hero */}
           <div
-            className="hidden h-[90.9vh] lg:flex items-center"
+            className="hidden xl:flex overflow-hidden items-center justify-center"
             onMouseEnter={() => setIsLeftHovered(true)}
             onMouseLeave={() => setIsLeftHovered(false)}
           >
@@ -113,21 +108,20 @@ const Home = () => {
                   : "https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275349/right1_mktnnw.png"
               }
               alt="right hero"
-              className="h-full object-contain"
+              className="max-h-[91vh] w-auto object-contain"
               loading="lazy"
             />
           </div>
-        </div>
-      </div>
+      </section>
 
       {/* Second Section */}
       <SecondSection />
 
       {/* Third Section */}
-      <div className="flex w-full md:h-[90vh] border-t">
+      <div className="flex w-full border-t">
         <ExploreCategories />
       </div>
-    </>
+    </main>
   );
 };
 

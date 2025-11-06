@@ -41,7 +41,7 @@ const Navbar = ({ onLoginClick }) => {
   };
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-white shadow-sm sticky top-0 inset-x-0 z-50">
       {/* Top Navbar Row */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
