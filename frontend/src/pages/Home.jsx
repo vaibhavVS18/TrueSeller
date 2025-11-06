@@ -60,7 +60,7 @@ const Home = () => {
     }
   }, [navigate]);
 
-  if (!loading) {
+  if (loading) {
     return (
         <StartLoader/>
     );
