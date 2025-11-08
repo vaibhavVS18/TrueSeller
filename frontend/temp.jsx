@@ -7,15 +7,28 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
 
   return (
       <section
-        className="relative flex flex-col h-auto xl:h-[91vh] items-center xl:justify-between text-center xl:text-left sm:px-2"
+        className={`relative flex flex-col h-auto xl:h-[91vh] items-center xl:justify-between text-center xl:text-left sm:px-2 
+        ${isLeftHovered ? "bg-[url('https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs5_n7u95t.png')]" : "" } 
+        bg-cover bg-center transition`}
       >
 
-      <div className="flex max-h-25 xl:max-h-18 mt-2 xl:mt-0">
+      <div className={`${isLeftHovered ? "hidden" : ""} flex max-h-25 xl:max-h-18 mt-2 xl:mt-0`}>
         <img src="logo2.png" className="h-full w-auto object-cover">
         </img>
       </div>
       
       {/* Brand Name */}
+      {
+        isLeftHovered ? (
+          <h2 className="xl:absolute top-19 text-4xl md:text-xl text-gray-100 font-bold mb-2 mt-5 md:mt-0 tracking-tight"
+                style={{
+                WebkitTextStroke: "0.2px #000000ff",
+                color: "white"
+              }}
+          >
+            <span> True Seller</span>
+          </h2>
+        ):(
           <h2 className="xl:absolute top-16 text-4xl lg:text-4xl xl:text-3xl mb-2 font-extrabold tracking-tight"
               style={{
                 WebkitTextStroke: "0.8px #f3f4f6",
@@ -24,6 +37,9 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
           >
             <span className="text-emerald-600">True</span><span className="text-cyan-600">Seller</span>
           </h2>
+        )
+      }
+      
 
 
       {/* Headline */}
@@ -85,7 +101,7 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
       </p>
 
         {/* imp.-  xl:max-h-[91vh]  , for image wrapper (div) we have to write it again. */}
-      <div className={` flex items-end sm:max-h-[60vh] md:max-h-[65vh] lg:max-h-[75vh] xl:max-h-[80.5vh] transition duration-100`}>  
+      <div className={`${isLeftHovered ? "invisible" : ""} flex items-end sm:max-h-[60vh] md:max-h-[65vh] lg:max-h-[75vh] xl:max-h-[80.5vh] transition duration-100`}>  
         <img src="https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs4_xrstpy.png" 
              className="h-full w-auto object-contain"
              loading="lazy"
