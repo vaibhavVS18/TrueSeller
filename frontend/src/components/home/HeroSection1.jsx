@@ -8,7 +8,9 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
   return (
     // <section className="flex flex-col items-center justify-center lg:items-start w-full text-center lg:text-left px-4 sm:px-6 lg:py-0">
       <section
-        className={`relative flex flex-col h-auto xl:h-[91vh] items-center xl:justify-between text-center xl:text-left `}
+        className={`relative flex flex-col h-auto xl:h-[91vh] items-center xl:justify-between text-center xl:text-left sm:px-2 
+        ${isLeftHovered ? "bg-[url('https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs5_n7u95t.png')]" : "" } 
+        bg-cover bg-center transition`}
       >
 
       <div className={`${isLeftHovered ? "hidden" : ""} flex max-h-25 xl:max-h-18 mt-2 xl:mt-0`}>
@@ -17,14 +19,28 @@ const HeroSection1 = ({isLeftHovered, setIsLeftHovered}) => {
       </div>
       
       {/* Brand Name */}
-        <h2 className="xl:absolute top-16 text-4xl lg:text-4xl xl:text-3xl mb-2 font-extrabold tracking-tight"
-            style={{
-              WebkitTextStroke: "0.8px #f3f4f6",
-              color: "black"
-            }}
-        >
-          <span className="text-emerald-600">True</span><span className="text-cyan-600">Seller</span>
-        </h2>
+      {
+        isLeftHovered ? (
+          <h2 className="xl:absolute top-19 text-4xl md:text-xl text-gray-100 font-bold mb-2 mt-5 md:mt-0 tracking-tight"
+                style={{
+                WebkitTextStroke: "0.2px #000000ff",
+                color: "white"
+              }}
+          >
+            <span> True Seller</span>
+          </h2>
+        ):(
+          <h2 className="xl:absolute top-16 text-4xl lg:text-4xl xl:text-3xl mb-2 font-extrabold tracking-tight"
+              style={{
+                WebkitTextStroke: "0.8px #f3f4f6",
+                color: "black"
+              }}
+          >
+            <span className="text-emerald-600">True</span><span className="text-cyan-600">Seller</span>
+          </h2>
+        )
+      }
+      
 
 
       {/* Headline */}
