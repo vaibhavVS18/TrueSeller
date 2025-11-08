@@ -97,7 +97,9 @@ const Home = () => {
             >
               <img 
                 src="https://res.cloudinary.com/dmfdw5lzn/image/upload/v1762275346/bs5_n7u95t.png"
-                className="h-full w-auto object-cover">
+                className="h-full w-auto object-cover"
+                loading="lazy"
+              >
               </img>
               <h2 className="xl:absolute top-19 left-1/2 -translate-x-1/2 md:text-xl text-center text-gray-100 font-bold tracking-tight"
                     style={{
