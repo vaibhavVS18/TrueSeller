@@ -282,7 +282,7 @@ export default function Shop() {
               {/* Explore Button */}
               <button
                 onClick={scrollToProducts}
-                className="w-full bg-cyan-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-cyan-600 transition shadow-md mb-4"
+                className="w-full bg-cyan-600 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-cyan-700 transition shadow-md mb-4"
               >
                 Explore Our Products 🛍️
               </button>
@@ -313,18 +313,29 @@ export default function Shop() {
           {/* Desktop/Tablet Layout */}
           <div className="hidden lg:flex gap-6 xl:gap-8 h-[calc(100vh-8rem)]">
             {/* Left: Logo Section */}
-            <div className="flex-1 flex-col gap-10 bg-white rounded-xl shadow-lg p-6 overflow-hidden flex justify-center items-center">
-                <img
-                  src={shop.logo}
-                  alt={shop.shopname}
-                  className="w-84 h-84 xl:w-100 xl:h-100 rounded-full object-cover border-4 border-emerald-400 shadow-md"
-                />
+            <div className="flex-1 flex-col gap-10 bg-white rounded-xl shadow-lg p-6 overflow-hidden flex justify-center items-center relative">
 
-              <h1 className="text-3xl xl:text-4xl font-bold text-gray-900 mb-4">
+              {/* 🔥 Background Watermark */}
+              <div
+                className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-10 pointer-events-none"
+                style={{
+                  backgroundImage: `url(${shop.logo})`,
+                }}
+              />
+
+              {/* Content on top */}
+              <img
+                src={shop.logo}
+                alt={shop.shopname}
+                className="w-84 h-84 xl:w-100 xl:h-100 rounded-full object-cover border-3 border-emerald-400 shadow-md relative z-10"
+              />
+
+              <h1 className="text-3xl xl:text-4xl font-bold text-gray-900 mb-4 relative z-10">
                 {shop.shopname}
-              </h1>            
-              
+              </h1>
+
             </div>
+
 
             {/* Right: Shop Info */}
             <div className="relative flex-1 bg-white rounded-xl shadow-lg p-6 relative overflow-y-auto">
@@ -395,7 +406,7 @@ export default function Shop() {
               {/* Explore Button */}
               <button
                 onClick={scrollToProducts}
-                className="w-full bg-cyan-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-cyan-600 transition shadow-md"
+                className="w-full bg-cyan-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-cyan-700 transition shadow-md"
               >
                 Explore Our Products 🛍️
               </button>

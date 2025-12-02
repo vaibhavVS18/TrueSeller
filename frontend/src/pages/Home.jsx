@@ -43,10 +43,10 @@ const Home = () => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   fetch("https://trueseller-q39b.onrender.com");
-  //   fetch("https://codchat-jvsc.onrender.com");
-  // }, []);
+  useEffect(() => {
+    fetch("https://trueseller-q39b.onrender.com");
+    fetch("https://codchat-jvsc.onrender.com");
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
