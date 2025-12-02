@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/user.context";
 import axios from "../../config/axios";
 import { FcGoogle } from "react-icons/fc";
@@ -11,7 +11,7 @@ const RegisterModal = ({ isOpen, onClose, onLoginClick }) => {
   const [error, setError] = useState("");
 
   const { setUser } = useContext(UserContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Email/password registration
   function submitHandler(e) {

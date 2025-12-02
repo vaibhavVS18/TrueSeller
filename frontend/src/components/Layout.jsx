@@ -1,5 +1,5 @@
-import React, {useContext, useState} from "react";
-import { Outlet, useSearchParams } from "react-router-dom";
+import React, {useContext} from "react";
+import { Outlet } from "react-router-dom";
 
 import { UserContext } from "../context/user.context";
 import { ModalContext } from "../context/modal.context.jsx";

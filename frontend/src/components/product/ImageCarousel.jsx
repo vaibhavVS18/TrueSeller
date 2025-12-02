@@ -33,7 +33,7 @@ const ImageCarousel = ({ product }) => {
 
   return (
     <div className="flex-col mx-auto w-full md:max-w-150 justify-center mb-4">
-      <div className="relative flex-col h-70 md:h-130 mx-auto overflow-hidden rounded-2xl shadow-lg border-2 border-gray-300">
+      <div className="relative flex-col h-70 md:h-123 mx-auto overflow-hidden rounded-2xl shadow-lg border-2 border-gray-300">
 
         {/* Images */}
         {images.map((img, index) => (

@@ -19,6 +19,7 @@ export const UserProvider = ({children}) =>{
                 })
                 .catch((err)=>{
                     localStorage.removeItem("token");
+                    console.log(err);
                 })
                 .finally(()=>{
                     setLoading(false);

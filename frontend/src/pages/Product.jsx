@@ -275,7 +275,7 @@ export default function Product() {
                   onClick={() => {
                     user ? addToCart(product, product.shop?._id) : setIsLoginOpen(true);
                   }}
-                  className="flex-1 flex items-center justify-center gap-2 bg-cyan-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-cyan-600 transition shadow-md"
+                  className="flex-1 flex items-center justify-center gap-2 bg-cyan-600 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-cyan-700 transition shadow-md"
                 >
                   <ShoppingCart size={18} />
                   <span>Add to Cart</span>
@@ -283,7 +283,7 @@ export default function Product() {
 
                 <Link
                   to={user ? "/cartPage" : "#"}
-                  className="flex-1 flex items-center justify-center gap-2 bg-emerald-500 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-emerald-600 transition shadow-md"
+                  className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white px-4 py-2.5 rounded-lg font-medium hover:bg-emerald-700 transition shadow-md"
                   onClick={(e) => {
                     if (user) {
                       addToCart(product, product.shop?._id);
@@ -397,7 +397,7 @@ export default function Product() {
                   onClick={() => {
                     user ? addToCart(product, product.shop?._id) : setIsLoginOpen(true);
                   }}
-                  className="flex-1 flex items-center justify-center gap-2 bg-cyan-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-cyan-600 transition shadow-md"
+                  className="flex-1 flex items-center justify-center gap-2 bg-cyan-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-cyan-700 transition shadow-md"
                 >
                   <ShoppingCart size={20} />
                   <span>Add to Cart</span>
@@ -405,7 +405,7 @@ export default function Product() {
 
                 <Link
                   to={user ? "/cartPage" : "#"}
-                  className="flex-1 flex items-center justify-center gap-2 bg-emerald-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-emerald-600 transition shadow-md"
+                  className="flex-1 flex items-center justify-center gap-2 bg-emerald-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-emerald-700 transition shadow-md"
                   onClick={(e) => {
                     if (user) {
                       addToCart(product, product.shop?._id);
