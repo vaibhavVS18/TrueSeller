@@ -7,8 +7,16 @@
 
 A MERN-based platform to help local shopkeepers sell their products online easily without any technical skills. Shop owners can register, add their shop details, upload products with images and prices, and sell across India. Buyers can explore local products from different states, order with home delivery, and choose Cash on Delivery or online payment options.
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://trueseller.vercel.app/)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/vaibhavVS18/TrueSeller)
+<br>
+<p align="center">
+  <a href="https://trueseller.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/LIVE%20DEMO-OPEN-brightgreen?style=for-the-badge"
+         height="60" />
+  </a>
+</p>
+
+
+<!-- [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/vaibhavVS18/TrueSeller)  -->
 
 ## 🌟 Features
 
