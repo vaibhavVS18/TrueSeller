@@ -1,6 +1,8 @@
 <div align="center">
-  <img src="./assets/logo.png" alt="TrueSeller Logo" width="200"/>
+  <a href="https://trueseller.vercel.app">
+  <img src="./frontend/public/logo.png" alt="TrueSeller Logo" width="200"/>
   <h1>TrueSeller – Connecting Local Sellers to Online Buyers</h1>
+  </a>
 </div>
 
 A MERN-based platform to help local shopkeepers sell their products online easily without any technical skills. Shop owners can register, add their shop details, upload products with images and prices, and sell across India. Buyers can explore local products from different states, order with home delivery, and choose Cash on Delivery or online payment options.
