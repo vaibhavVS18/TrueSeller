@@ -1,5 +1,6 @@
 import React from 'react'
 import {Route, Routes, BrowserRouter} from "react-router-dom";
+import ScrollToTop from '../components/ScrollToTop.jsx';
 import Layout from '../components/Layout.jsx';
 import Home from "../pages/Home.jsx";
 import Home2 from "../pages/Home2.jsx";
@@ -12,7 +13,7 @@ import ProfilePage from '../pages/ProfilePage.jsx';
 import WishlistPage from '../pages/WishListPage.jsx';
 import CartPage from '../pages/CartPage.jsx';
 import OrdersPage from '../pages/OrdersPage.jsx';
-import ScrollToTop from '../components/common/ScrollToTop.jsx';
+
 
 const AppRoutes = () => {
   return (

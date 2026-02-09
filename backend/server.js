@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser"; //
 import connect from "./db/db.js";
+
 import userRoutes from "./routes/user.routes.js";
 import shopRoutes from "./routes/shop.routes.js";
 import productRoutes from "./routes/product.routes.js";
