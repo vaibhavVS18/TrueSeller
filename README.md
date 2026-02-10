@@ -67,11 +67,11 @@ cd TrueSeller
 2. **Install dependencies**
 ```bash
 # Install frontend dependencies
-cd client
+cd frontend
 npm install
 
 # Install backend dependencies
-cd ../server
+cd backend
 npm install
 ```
 
@@ -82,11 +82,11 @@ Create `.env` files in both client and server directories with your configuratio
 4. **Run the application**
 ```bash
 # Start backend
-cd server
-npm start
+cd backend
+npm run dev
 
 # Start frontend (in new terminal)
-cd client
+cd frontend
 npm run dev
 ```
 
